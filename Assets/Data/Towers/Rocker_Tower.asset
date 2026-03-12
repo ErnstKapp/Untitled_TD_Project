@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc3047590dd0804a882482062510196, type: 3}
+  m_Name: Rocker_Tower
+  m_EditorClassIdentifier: 
+  towerName: Rocker Tower
+  description: 4 lager snoryeah
+  icon: {fileID: 0}
+  towerPrefab: {fileID: 5947421471429857053, guid: 7562ff9dd93543c4cb1c9b23ef540545, type: 3}
+  cost: 50
+  range: 5
+  fireRate: 1
+  damage: 30
+  projectileSpeed: 5
+  dotDamage: 0
+  dotDuration: 0
+  slowPercentage: 0
+  slowDuration: 0
+  projectilePrefab: {fileID: 2458355644032726957, guid: c96994bfb2b720247a07e8aff43a6c75, type: 3}
+  baseAnimatorController: {fileID: 0}
+  rootUpgrade: {fileID: 11400000, guid: a5dfc0ec3a7676f4f96ad1998b429e2a, type: 2}
+  genre: 2

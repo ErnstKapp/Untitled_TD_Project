@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16b0c191793b8648b746b4508efe416, type: 3}
+  m_Name: PagliacciUpgrade
+  m_EditorClassIdentifier: 
+  displayName: Pagliacci
+  description: 'Gives more slow and attack speed '
+  cost: 50
+  damageAdd: 15
+  rangeAdd: 0
+  fireRateAdd: 0.2
+  projectileSpeedAdd: 0
+  dotDamageAdd: 0
+  dotDurationAdd: 0
+  slowPercentageAdd: 0.15
+  slowDurationAdd: 0
+  spriteOverride: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
+  animatorControllerOverride: {fileID: 9100000, guid: 549d55b3c3dba2a45931da32c86e83b1, type: 2}
+  projectilePrefabOverride: {fileID: 3057394619383153864, guid: aa5e64adbf899b647840ac84ef3dfdd5, type: 3}
+  leftNext: {fileID: 11400000, guid: e740d6181ed6e84448f6fe816a3d9512, type: 2}
+  rightNext: {fileID: 0}
