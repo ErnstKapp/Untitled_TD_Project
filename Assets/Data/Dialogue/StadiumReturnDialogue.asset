@@ -17,42 +17,42 @@ MonoBehaviour:
   - speakerName: Four Layers of Booger
     text: That was crazy, thanks for helping us out King!
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
-    speakerOnLeft: 1
+    speakerOnLeft: 0
   - speakerName: The King
     text: Hey, the King will always help out four layers of boogers! Now who were
       these guys?
     portrait: {fileID: -5769496865783770079, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
-    speakerOnLeft: 0
+    speakerOnLeft: 1
   - speakerName: Four Layers of Booger
     text: No clue King, havent seen them before
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
-    speakerOnLeft: 1
+    speakerOnLeft: 0
   - speakerName: Pagliacci
     text: '*sniff*'
     portrait: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
-    speakerOnLeft: 0
+    speakerOnLeft: 1
   - speakerName: Pagliacci
     text: Hello? Are you the four layers of boogers *sniff*
     portrait: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
-    speakerOnLeft: 0
+    speakerOnLeft: 1
   - speakerName: Four layers of Boogers
     text: Yes, whats up funny-man?
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
-    speakerOnLeft: 1
+    speakerOnLeft: 0
   - speakerName: Pagliacci
     text: You are requested to visit my friend Don Giovanni in Paris. Please accompany
       me friends. *sniff*
     portrait: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
-    speakerOnLeft: 0
+    speakerOnLeft: 1
   - speakerName: Four layers of Boogers
     text: Is this about the strangers crashing our show?
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
-    speakerOnLeft: 1
+    speakerOnLeft: 0
   - speakerName: Pagliacci
     text: 'Yes *sniff*, I can not explain more here commendatori, to Paris! '
     portrait: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
-    speakerOnLeft: 0
+    speakerOnLeft: 1
   - speakerName: Four Layers of Boogers
     text: Rock on!
     portrait: {fileID: 2600253448845335413, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
-    speakerOnLeft: 1
+    speakerOnLeft: 0

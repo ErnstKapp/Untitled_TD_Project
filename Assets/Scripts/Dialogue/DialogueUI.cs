@@ -57,7 +57,10 @@ public class DialogueUI : MonoBehaviour
     public void Show()
     {
         if (panelRoot != null)
+        {
             panelRoot.SetActive(true);
+            Debug.Log($"[DialogueUI] Show() – set panelRoot '{panelRoot.name}' active. activeSelf={panelRoot.activeSelf}, activeInHierarchy={panelRoot.activeInHierarchy}.");
+        }
         else
             Debug.LogWarning("[DialogueUI] Show() called but panelRoot is null! Assign Panel Root in the Inspector.");
         if (dimOverlay != null)
@@ -78,6 +81,8 @@ public class DialogueUI : MonoBehaviour
     /// </summary>
     public void ShowLine(DialogueLine line)
     {
+        if (line == null) return;
+        Debug.Log($"[DialogueUI] ShowLine() – speaker='{line.speakerName}', text length={line.text?.Length ?? 0}.");
         if (line.portrait != null)
         {
             if (line.speakerOnLeft)

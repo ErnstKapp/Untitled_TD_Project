@@ -8,6 +8,8 @@ public class TowerPlacement : MonoBehaviour
     public bool IsPlacing => isPlacing;
 
     [Header("Placement Settings")]
+    [Tooltip("Optional: painted sprite overlay that defines where towers can be placed. Leave empty to allow placement anywhere (except blocked layer).")]
+    [SerializeField] private TowerPlacementMask placementMask;
     [SerializeField] private LayerMask placementLayer;
     [SerializeField] private LayerMask blockedLayer;
     [SerializeField] private Color validPlacementColor = Color.green;
@@ -37,9 +39,10 @@ public class TowerPlacement : MonoBehaviour
     {
         mainCamera = Camera.main;
         if (mainCamera == null)
-        {
             mainCamera = FindObjectOfType<Camera>();
-        }
+
+        if (placementMask == null)
+            placementMask = FindObjectOfType<TowerPlacementMask>();
     }
 
     private void Update()
@@ -231,6 +234,20 @@ public class TowerPlacement : MonoBehaviour
 
     private bool CanPlaceAtPosition(Vector3 position)
     {
+        if (placementMask == null)
+            placementMask = FindObjectOfType<TowerPlacementMask>();
+
+        // Check placement mask at the *bottom* of the tower (foot position), not the pivot
+        Vector3 pointToCheck = position;
+        if (placementMask != null && previewRenderer != null)
+        {
+            pointToCheck = new Vector3(position.x, previewRenderer.bounds.min.y, position.z);
+            if (!placementMask.IsValidPlacementPosition(pointToCheck))
+                return false;
+        }
+        else if (placementMask != null && !placementMask.IsValidPlacementPosition(position))
+            return false;
+
         // Check if position is blocked (only if blockedLayer is set)
         if (blockedLayer.value != 0)
         {

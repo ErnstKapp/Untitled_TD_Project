@@ -70,17 +70,7 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
-        if (sceneName == "Overworld_Scene" && DialogueManager.Instance != null)
-        {
-            string from = SceneManager.GetActiveScene().name;
-            Debug.Log($"[SceneLoader] Loading Overworld_Scene – setting overworld return from '{from}'.");
-            DialogueManager.SetReturningFromScene(from);
-        }
-
-        if (DialogueManager.Instance != null)
-            DialogueManager.Instance.PlayCutsceneForSceneIfAny(sceneName, () => DoLoadScene(sceneName));
-        else
-            DoLoadScene(sceneName);
+        DoLoadScene(sceneName);
     }
     
     private void DoLoadScene(string sceneName)

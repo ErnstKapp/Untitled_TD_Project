@@ -3,32 +3,20 @@ using UnityEngine.SceneManagement;
 using System;
 
 /// <summary>
-/// Runs a dialogue sequence (e.g. Paris intro). When done, can run a callback (e.g. load scene).
-/// Register cutscenes per scene so SceneLoader can play them before loading.
+/// Runs dialogue sequences. Use PlayDialogueOnLoad in a scene for intro dialogue, OverworldReturnDialogue for return-to-overworld dialogue.
 /// </summary>
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
 
-    [Header("Cutscenes before scenes")]
-    [Tooltip("If the player loads this scene name, play this dialogue first; when done, load the scene.")]
-    [SerializeField] private SceneCutscene[] cutscenesBeforeScenes = new SceneCutscene[0];
-
-    [Header("Dialogue when returning to overworld")]
-    [Tooltip("When the player returns to the overworld after completing a level, play this dialogue. One entry per level (e.g. Stadium_Scene → stadium complete dialogue, Paris_Scene → Paris complete dialogue).")]
-    [SerializeField] private SceneCutscene[] dialoguesWhenReturningToOverworld = new SceneCutscene[0];
-
     [Header("References")]
     [SerializeField] private DialogueUI dialogueUI;
 
-    private static string returningFromScene;
-
-    [Serializable]
-    public struct SceneCutscene
-    {
-        public string sceneName;
-        public DialogueData dialogue;
-    }
+    [Header("Overworld return dialogue (play when returning from a level)")]
+    [Tooltip("Assign in the scene that has DialogueManager. Plays when Overworld loads after finishing Stadium.")]
+    [SerializeField] private DialogueData stadiumReturnDialogue;
+    [Tooltip("Optional: plays when returning from Paris_Scene.")]
+    [SerializeField] private DialogueData parisReturnDialogue;
 
     private DialogueData currentDialogue;
     private int currentIndex;
@@ -65,79 +53,44 @@ public class DialogueManager : MonoBehaviour
     }
 
     /// <summary>
-    /// When the active scene changes, clear cached UI so we use the new scene's DialogueUI (e.g. Stadium has its own panel).
+    /// When the active scene changes, clear cached UI. When returning to Overworld, re-acquire its Dialogue UI so we have a valid reference.
     /// </summary>
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
         dialogueUI = null;
-    }
+        if (scene.name == "Overworld_Scene")
+        {
+            Debug.Log("[DialogueManager] OnSceneLoaded: entered Overworld_Scene block.");
+            dialogueUI = FindObjectOfType<DialogueUI>(true);
+            if (dialogueUI != null)
+                Debug.Log($"[DialogueManager] Overworld loaded – re-assigned Dialogue UI to '{dialogueUI.gameObject.name}'.");
+            else
+                Debug.LogWarning("[DialogueManager] Overworld loaded but no DialogueUI found in scene! Add a DialogueUI component to your dialogue panel in Overworld_Scene.");
 
-    /// <summary>
-    /// Call before loading the overworld scene so we know which level we're returning from. Used by SceneLoader when loading Overworld_Scene.
-    /// </summary>
-    public static void SetReturningFromScene(string sceneName)
-    {
-        returningFromScene = sceneName;
-        Debug.Log($"[DialogueManager] Overworld return: set returning-from = '{sceneName}'.");
-    }
-
-    /// <summary>
-    /// Get the dialogue to play when returning to overworld (based on which scene we came from), and clear the state so we only play once.
-    /// Returns null if no dialogue is configured for that scene.
-    /// </summary>
-    public DialogueData GetAndClearDialogueForReturningFromOverworld()
-    {
-        Debug.Log($"[DialogueManager] Overworld return: GetAndClear – returningFromScene='{returningFromScene ?? "(null)"}', list length={dialoguesWhenReturningToOverworld?.Length ?? 0}");
-        if (string.IsNullOrEmpty(returningFromScene))
-        {
-            Debug.Log("[DialogueManager] Overworld return: no returning-from scene set, skipping dialogue.");
-            return null;
-        }
-        if (dialoguesWhenReturningToOverworld == null || dialoguesWhenReturningToOverworld.Length == 0)
-        {
-            Debug.Log("[DialogueManager] Overworld return: Dialogues When Returning To Overworld is empty. Add entries in Inspector.");
-            returningFromScene = null;
-            return null;
-        }
-        for (int i = 0; i < dialoguesWhenReturningToOverworld.Length; i++)
-        {
-            var entry = dialoguesWhenReturningToOverworld[i];
-            if (entry.sceneName == returningFromScene && entry.dialogue != null)
+            // Play return dialogue from here so it works even if OverworldReturnDialogue isn't in the scene
+            string last = LevelProgressionManager.LastCompletedLevel;
+            Debug.Log($"[DialogueManager] Overworld return check – LastCompletedLevel='{last ?? "(null)"}', stadiumReturnDialogue assigned={stadiumReturnDialogue != null}, parisReturnDialogue assigned={parisReturnDialogue != null}.");
+            if (string.IsNullOrEmpty(last))
             {
-                DialogueData data = entry.dialogue;
-                Debug.Log($"[DialogueManager] Overworld return: playing dialogue for '{returningFromScene}' → '{data.dialogueTitle}' ({data.lines?.Length ?? 0} lines).");
-                returningFromScene = null;
-                return data;
+                Debug.Log("[DialogueManager] Overworld return: LastCompletedLevel is null or empty, skipping (did you finish a level before returning?).");
+            }
+            else
+            {
+                DialogueData toPlay = null;
+                if (last == "Stadium_Scene") toPlay = stadiumReturnDialogue;
+                else if (last == "Paris_Scene") toPlay = parisReturnDialogue;
+                if (toPlay == null)
+                    Debug.Log($"[DialogueManager] Overworld return: no dialogue asset assigned for '{last}'. Assign Stadium Return Dialogue (or Paris) on DialogueManager in the Inspector.");
+                else if (toPlay.lines == null || toPlay.lines.Length == 0)
+                    Debug.Log($"[DialogueManager] Overworld return: dialogue '{toPlay.dialogueTitle}' has no lines.");
+                else
+                {
+                    LevelProgressionManager.LastCompletedLevel = null;
+                    Debug.Log($"[DialogueManager] Overworld return: calling StartDialogue for '{toPlay.dialogueTitle}' ({toPlay.lines.Length} lines).");
+                    StartDialogue(toPlay, null);
+                }
             }
         }
-        Debug.Log($"[DialogueManager] Overworld return: no dialogue for '{returningFromScene}'. Registered: [{string.Join(", ", System.Array.ConvertAll(dialoguesWhenReturningToOverworld, e => "'" + e.sceneName + "'"))}]");
-        returningFromScene = null;
-        return null;
-    }
-
-    /// <summary>
-    /// If there is a cutscene for this scene, play it and call onComplete when done; otherwise call onComplete immediately.
-    /// </summary>
-    public void PlayCutsceneForSceneIfAny(string sceneName, Action thenLoadScene)
-    {
-        DialogueData data = GetCutsceneForScene(sceneName);
-        if (data != null && data.lines != null && data.lines.Length > 0)
-            StartDialogue(data, thenLoadScene);
-        else
-            thenLoadScene?.Invoke();
-    }
-
-    public DialogueData GetCutsceneForScene(string sceneName)
-    {
-        if (string.IsNullOrEmpty(sceneName) || cutscenesBeforeScenes == null)
-            return null;
-        for (int i = 0; i < cutscenesBeforeScenes.Length; i++)
-        {
-            var entry = cutscenesBeforeScenes[i];
-            if (entry.sceneName == sceneName && entry.dialogue != null)
-                return entry.dialogue;
-        }
-        return null;
     }
 
     /// <summary>
@@ -166,8 +119,10 @@ public class DialogueManager : MonoBehaviour
         currentIndex = 0;
         onComplete = onCompleteCallback;
 
+        Debug.Log($"[DialogueManager] StartDialogue: showing '{data.dialogueTitle}' ({data.lines.Length} lines), dialogueUI='{dialogueUI?.gameObject?.name}'.");
         dialogueUI.Show();
         dialogueUI.ShowLine(data.lines[0]);
+        Debug.Log("[DialogueManager] Show() and ShowLine() done.");
     }
 
     /// <summary>

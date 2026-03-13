@@ -8,7 +8,11 @@ public class LevelProgressionManager : MonoBehaviour
 {
     public static LevelProgressionManager Instance { get; private set; }
 
+    /// <summary>Scene name of the level that was just completed (e.g. Stadium_Scene). Cleared when overworld reads it.</summary>
+    public static string LastCompletedLevel { get; set; }
+
     private const string LEVEL_COMPLETED_KEY_PREFIX = "LevelCompleted_";
+    private const string PROGRESSION_INITIALIZED_KEY = "LevelProgression_Initialized";
 
     private void Awake()
     {
@@ -16,12 +20,30 @@ public class LevelProgressionManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            EnsureCleanProgressionOnFirstRun();
         }
         else
         {
             Destroy(gameObject);
             return;
         }
+    }
+
+    /// <summary>
+    /// In builds, first run has no saved progression so only Stadium shows. Editor keeps existing PlayerPrefs.
+    /// </summary>
+    private void EnsureCleanProgressionOnFirstRun()
+    {
+#if !UNITY_EDITOR
+        if (PlayerPrefs.GetInt(PROGRESSION_INITIALIZED_KEY, 0) == 0)
+        {
+            PlayerPrefs.SetInt(PROGRESSION_INITIALIZED_KEY, 1);
+            PlayerPrefs.DeleteKey(LEVEL_COMPLETED_KEY_PREFIX + "Stadium_Scene");
+            PlayerPrefs.DeleteKey(LEVEL_COMPLETED_KEY_PREFIX + "Paris_Scene");
+            PlayerPrefs.DeleteKey(LEVEL_COMPLETED_KEY_PREFIX + "Swamp_Scene");
+            PlayerPrefs.Save();
+        }
+#endif
     }
 
     /// <summary>
@@ -38,6 +60,7 @@ public class LevelProgressionManager : MonoBehaviour
 
         PlayerPrefs.SetInt(LEVEL_COMPLETED_KEY_PREFIX + sceneName, 1);
         PlayerPrefs.Save();
+        LastCompletedLevel = sceneName;
     }
 
     /// <summary>
@@ -61,13 +84,19 @@ public class LevelProgressionManager : MonoBehaviour
     /// <param name="sceneName">Name of the scene to check</param>
     public bool IsLevelUnlocked(string sceneName)
     {
-        if (sceneName.Contains("Stadium"))
+        if (string.IsNullOrEmpty(sceneName)) return false;
+        if (sceneName.IndexOf("Stadium", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            return true;
+        // Hub/menu scenes are always loadable (New Game, etc.)
+        if (sceneName.IndexOf("Overworld", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+            sceneName.IndexOf("Menu", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+            sceneName.IndexOf("Home", System.StringComparison.OrdinalIgnoreCase) >= 0)
             return true;
         string previousSceneName = GetPreviousSceneName(sceneName);
         if (string.IsNullOrEmpty(previousSceneName))
         {
-            Debug.LogWarning($"[LevelProgressionManager] Could not determine previous level for '{sceneName}', assuming unlocked");
-            return true;
+            Debug.LogWarning($"[LevelProgressionManager] Could not determine previous level for '{sceneName}', treating as locked.");
+            return false;
         }
         return IsLevelCompleted(previousSceneName);
     }
@@ -83,10 +112,12 @@ public class LevelProgressionManager : MonoBehaviour
         // Clear known level keys
         PlayerPrefs.DeleteKey(LEVEL_COMPLETED_KEY_PREFIX + "Stadium_Scene");
         PlayerPrefs.DeleteKey(LEVEL_COMPLETED_KEY_PREFIX + "Paris_Scene");
+        PlayerPrefs.DeleteKey(LEVEL_COMPLETED_KEY_PREFIX + "Swamp_Scene");
         // Add more as needed when you add levels
         
         PlayerPrefs.Save();
-        LevelButton[] buttons = FindObjectsOfType<LevelButton>();
+        Debug.Log("[LevelProgressionManager] Progression reset. Refreshing all LevelButtons (including inactive). Reload overworld or re-enter Play to see only Stadium.");
+        LevelButton[] buttons = FindObjectsOfType<LevelButton>(true);
         foreach (LevelButton lb in buttons)
             lb.UpdateButtonState();
     }
@@ -102,6 +133,8 @@ public class LevelProgressionManager : MonoBehaviour
         Debug.Log($"Paris_Scene completed: {IsLevelCompleted("Paris_Scene")}");
         Debug.Log($"Stadium_Scene unlocked: {IsLevelUnlocked("Stadium_Scene")}");
         Debug.Log($"Paris_Scene unlocked: {IsLevelUnlocked("Paris_Scene")}");
+        Debug.Log($"Swamp_Scene completed: {IsLevelCompleted("Swamp_Scene")}");
+        Debug.Log($"Swamp_Scene unlocked: {IsLevelUnlocked("Swamp_Scene")}");
         Debug.Log("================================");
     }
 
@@ -110,13 +143,13 @@ public class LevelProgressionManager : MonoBehaviour
     /// </summary>
     private string GetPreviousSceneName(string sceneName)
     {
-        // Map scenes to their previous scenes
-        if (sceneName.Contains("Paris"))
-        {
+        if (string.IsNullOrEmpty(sceneName)) return null;
+        // Map scenes to their previous scenes (order: Stadium → Paris → Swamp). Case-insensitive for builds.
+        if (sceneName.IndexOf("Paris", System.StringComparison.OrdinalIgnoreCase) >= 0)
             return "Stadium_Scene";
-        }
+        if (sceneName.IndexOf("Swamp", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            return "Paris_Scene";
         // Add more mappings as you add more levels
-        // e.g., if you add "Level3_Scene", map it to "Paris_Scene"
         
         // Try to extract number and decrement
         string numberStr = System.Text.RegularExpressions.Regex.Match(sceneName, @"\d+").Value;

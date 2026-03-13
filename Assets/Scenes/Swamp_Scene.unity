@@ -466,6 +466,109 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110824425}
   m_CullTransparentMesh: 1
+--- !u!1 &247420627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 247420630}
+  - component: {fileID: 247420629}
+  - component: {fileID: 247420628}
+  m_Layer: 0
+  m_Name: TowerPlacementMask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &247420628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247420627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8404b44e025163347aaf7db7455beca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskRenderer: {fileID: 247420629}
+  useAlphaChannel: 1
+  validThreshold: 0.09
+  flipY: 0
+  flipX: 0
+  drawValidInvalidGrid: 1
+--- !u!212 &247420629
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247420627}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: ea3928301c7e6e6469f3fd83af13a028, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 6.4, y: 3.6}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &247420630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247420627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2, y: 0.41, z: -5.586875}
+  m_LocalScale: {x: 2.774317, y: 2.707993, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &267061823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,7 +1662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &504131311
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4415,8 +4518,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BLUES ENEMIES cant get enough of the blues! Let that blues tower of yours
-    squeak out some sadness and watch the BLUES ENEMIES lose control, ROCK ON!
+  m_text: BLUES GUYS cant get enough of the blues and are faster than usual enemies!
+    Blues Towers do extra damage against these enemies!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2fa5c1e8840cfae41ba90c033101dec3, type: 2}
   m_sharedMaterial: {fileID: 7530123380187223826, guid: 2fa5c1e8840cfae41ba90c033101dec3, type: 2}
@@ -4522,6 +4625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238b38e966380b84880cd2a8afe24756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placementMask: {fileID: 247420628}
   placementLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -5970,6 +6074,7 @@ SceneRoots:
   - {fileID: 616046369}
   - {fileID: 1648700915}
   - {fileID: 1917531444}
+  - {fileID: 247420630}
   - {fileID: 958990635}
   - {fileID: 694677310}
   - {fileID: 1179025625}

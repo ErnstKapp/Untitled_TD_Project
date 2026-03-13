@@ -19,7 +19,13 @@ public class LevelButton : MonoBehaviour
     [SerializeField] private GameObject lockedOverlay; // Optional: visual indicator for locked state
 
     [Header("Visual Settings")]
-    [Tooltip("Color when level is locked")]
+    [Tooltip("If true, this GameObject is hidden when locked (only appears after previous stage is completed). Put LevelButton on the root of each button so the whole button hides.")]
+    [SerializeField] private bool hideWhenLocked = true;
+
+    [Tooltip("Log unlock state to Console when UpdateButtonState runs (for debugging).")]
+    [SerializeField] private bool debugLog = false;
+    
+    [Tooltip("Color when level is locked (used when hideWhenLocked is false)")]
     [SerializeField] private Color lockedColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
     
     [Tooltip("Color when level is unlocked")]
@@ -31,26 +37,18 @@ public class LevelButton : MonoBehaviour
     {
         // Get components if not assigned
         if (button == null)
-        {
             button = GetComponent<Button>();
-        }
-        
         if (buttonImage == null)
-        {
             buttonImage = GetComponent<Image>();
-        }
-        
         if (buttonText == null)
-        {
             buttonText = GetComponentInChildren<TextMeshProUGUI>();
-        }
-        
-        // Add interceptor to check lock status before allowing clicks
+
         if (button != null)
-        {
-            // Add our interceptor as a runtime listener (runs before persistent listeners)
             button.onClick.AddListener(OnButtonIntercepted);
-        }
+
+        // Apply lock/hide as early as possible (manager may be created by first button)
+        EnsureLevelProgressionManager();
+        UpdateButtonState();
     }
     
     /// <summary>
@@ -100,6 +98,9 @@ public class LevelButton : MonoBehaviour
         UpdateButtonState();
     }
 
+    [ContextMenu("Refresh Button State")]
+    private void RefreshButtonState() => UpdateButtonState();
+
     /// <summary>
     /// Updates the button's visual state and interactability based on level progression.
     /// </summary>
@@ -115,11 +116,15 @@ public class LevelButton : MonoBehaviour
         }
         else if (LevelProgressionManager.Instance == null)
         {
-            isUnlocked = sceneNameToLoad.Contains("Stadium");
+            isUnlocked = !string.IsNullOrEmpty(sceneNameToLoad) && sceneNameToLoad.IndexOf("Stadium", System.StringComparison.OrdinalIgnoreCase) >= 0;
+            if (debugLog)
+                Debug.Log($"[LevelButton] '{gameObject.name}' ({sceneNameToLoad}): no manager, isUnlocked={isUnlocked}");
         }
         else
         {
             isUnlocked = LevelProgressionManager.Instance.IsLevelUnlocked(sceneNameToLoad);
+            if (debugLog)
+                Debug.Log($"[LevelButton] '{gameObject.name}' ({sceneNameToLoad}): isUnlocked={isUnlocked}, hideWhenLocked={hideWhenLocked}, willBeActive={isUnlocked}");
         }
 
         Button[] allButtons = GetComponentsInChildren<Button>(true);
@@ -143,11 +148,17 @@ public class LevelButton : MonoBehaviour
             buttonImage.color = isUnlocked ? unlockedColor : lockedColor;
         }
 
-        // Show/hide locked overlay
-        if (lockedOverlay != null)
-            lockedOverlay.SetActive(!isUnlocked);
-        if (buttonText != null)
-            buttonText.text = !isUnlocked ? $"{sceneNameToLoad}\n(Locked)" : sceneNameToLoad;
+        // Show/hide entire button when locked (so buttons "appear" after previous stage)
+        if (hideWhenLocked)
+            gameObject.SetActive(isUnlocked);
+        else
+        {
+            gameObject.SetActive(true);
+            if (lockedOverlay != null)
+                lockedOverlay.SetActive(!isUnlocked);
+            if (buttonText != null)
+                buttonText.text = !isUnlocked ? $"{sceneNameToLoad}\n(Locked)" : sceneNameToLoad;
+        }
     }
 
     /// <summary>

@@ -132,14 +132,12 @@ public class EndScreenUI : MonoBehaviour
             levelProgressionObj.AddComponent<LevelProgressionManager>();
         }
 
-        // Mark level as completed (converts scene name to level number internally)
+        // Mark level as completed so overworld can show next level button
         string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         if (LevelProgressionManager.Instance != null)
-            LevelProgressionManager.Instance.MarkLevelCompleted(currentSceneName);
-        if (DialogueManager.Instance != null)
         {
-            DialogueManager.SetReturningFromScene(currentSceneName);
-            Debug.Log($"[EndScreenUI] Overworld return: set returning-from = '{currentSceneName}' (dialogue will play when overworld loads).");
+            LevelProgressionManager.Instance.MarkLevelCompleted(currentSceneName);
+            Debug.Log($"[EndScreenUI] Marked level completed: {currentSceneName}");
         }
 
         // Update UI text

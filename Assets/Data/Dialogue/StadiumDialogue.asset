@@ -42,6 +42,6 @@ MonoBehaviour:
     portrait: {fileID: 7090464327165714005, guid: b6f0af1f44b4e1f49a5b9f8c262e02fb, type: 3}
     speakerOnLeft: 1
   - speakerName: The King
-    text: What the crack? Lets return these guys to their dispatcher fellas!
+    text: What the crack? Lets return these guys to their sender fellas!
     portrait: {fileID: 5622922139875535349, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
     speakerOnLeft: 0
