@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3bea323d7045194c8f64259af0251b6, type: 3}
+  m_Name: SwampDialogue
+  m_EditorClassIdentifier: 
+  dialogueTitle: Swamp Dialouge
+  lines:
+  - speakerName: Four Layer Booger
+    text: Phew what a flight, you made it alright King?
+    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0
+  - speakerName: The King
+    text: Yeah, you good opera-dudes?
+    portrait: {fileID: -5769496865783770079, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Pagliacci
+    text: Very humid....*sniff*
+    portrait: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Don Giovanni
+    text: This coat is too warm my friends.
+    portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Toreador
+    text: Did you guys see that leprechaun?
+    portrait: {fileID: 1422787415573463666, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Moon Cakes
+    text: No sir! Not a leprechaun, just ol' Moon Cakes at your service!
+    portrait: {fileID: 5975404813947854390, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The King
+    text: '"Moon Cakes"?'
+    portrait: {fileID: -5769496865783770079, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Moon Cakes
+    text: In the flesh! Since I am the pride and joy of the Mobile blues scene, I
+      take my name from our local claim to fame, the equally classic Mobile Moon
+      Pie!
+    portrait: {fileID: 5975404813947854390, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Four Layered Booger
+    text: Whats a Moon Pie?
+    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Moon Cakes
+    text: Its a pie with fluffy marshmallow filling between two Graham crackers.
+      I must have you over at my place for some pies!
+    portrait: {fileID: -3509943568614503243, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Don Giovanni
+    text: I prefer Tiramisu...
+    portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Don Giovanni
+    text: You have any more information about these strangers Moon Cakes?
+    portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Moon Cakes
+    text: Well yes, my friend Ricky saw something after we were attacked last time,
+      didnt you Rick?
+    portrait: {fileID: 5975404813947854390, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Ricky
+    text: Yes, you see I met the devil as he was travelling out of Georgia.
+    portrait: {fileID: 3810571306890385323, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Four Layered Booger
+    text: What?
+    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Ricky
+    text: Mhm, he looked mighty sad, so i cheered him up over at my place with  a
+      music session. Never had the chance to see him play the fiddle before you see.
+    portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Four Layered Booger
+    text: Im sorry, but youre obviously mad sir.
+    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Ricky
+    text: Is that right? Well good thing he crashed on my couch. Ba'alzebub!
+    portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: Ugh, mornin fellas, whats happening?
+    portrait: {fileID: 8998519305058803246, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Four Layer Booger
+    text: ...
+    portrait: {fileID: 9148678872912604439, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Ricky
+    text: 'I was just explaining to these people here what got you so down in the
+      dumps, you feel alright explaining that? '
+    portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: Yeah, yeah, sure Rick. Just had a bit too many last night. Got any moon
+      pies in the fridge?
+    portrait: {fileID: 8998519305058803246, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Ricky
+    text: 'No ill get some in the afternoon. '
+    portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: Augh, alright thanks man.
+    portrait: {fileID: 1674671633654255636, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: So I dont know how much you guys heard, but i was travelling down to Georgia
+      looking for a soul to steal.
+    portrait: {fileID: 8998519305058803246, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Ricky
+    text: If you're looking for soul, thats where you go.
+    portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: Right, so I found this kid playing on his fiddle, real stiff looking fella.
+      I thought hey easy soul aquired right? Kid had no panache in his play, looked
+      downright animatronic.
+    portrait: {fileID: 2741398814378168921, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: So I gave him a wager right; I'll beat him in a fiddling-duel and in return
+      I'll win his eternal soul.
+    portrait: {fileID: 8998519305058803246, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: 'Well check this: I win the duel but the kid had no soul to give! '
+    portrait: {fileID: 1674671633654255636, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: So I say what kind of bullshit are you on son? Are you trying to pull a
+      fast one on the devil?
+    portrait: {fileID: 8998519305058803246, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: "Kid says \"I apologize for any inconvenience \u2014 I\u2019m currently
+      unable to provide a soul at this time. Thank you for your understanding.\""
+    portrait: {fileID: 1674671633654255636, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: I think were dealing with something completely new here fellas, I've been
+      around the music scene a long time and I cant explain what that was.
+    portrait: {fileID: 2741398814378168921, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Don Giovanni
+    text: We are gathering performers to face this threat head on. You want in satan?
+    portrait: {fileID: 664311894, guid: e679359d920aa174b96e1f008b8f6c5a, type: 3}
+    speakerOnLeft: 0
+  - speakerName: The Devil
+    text: 'If we''re going to figure out whats happening we need to stick together
+      Giovanni. Im in. '
+    portrait: {fileID: 2741398814378168921, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: I know a pop singer thats doing a europe tour in Moldova right now. Shes
+      the real deal, I think you'll agree we need her if we go there.
+    portrait: {fileID: 2324024619976336786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Ricky
+    text: Count old Ricky in too, never left Mobile anyway. I wonder how moldovan
+      music sounds.
+    portrait: {fileID: 3810571306890385323, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Stranger
+    text: Whats going on here? You know too much. We must have you destroyed.
+    portrait: {fileID: 1211290044023105038, guid: 14ebe5b5c1d2d9f43ae5ebe41484236c, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The King
+    text: Damn these guys wont stop, lets have at them!
+    portrait: {fileID: -3832979242277577206, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
+    speakerOnLeft: 0

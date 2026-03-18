@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    public event Action OnGameOver;
 
     [Header("Game State")]
     public bool isGameActive = false;
@@ -94,6 +97,7 @@ public class GameManager : MonoBehaviour
     {
         isGameActive = false;
         Time.timeScale = 0f;
+        OnGameOver?.Invoke();
     }
 
     public void Victory()

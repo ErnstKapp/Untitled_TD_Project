@@ -19,41 +19,70 @@ MonoBehaviour:
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
     speakerOnLeft: 0
   - speakerName: The King
-    text: Yeah, first time im outside of Sweden, a bit too warm for my taste *sweating*.
-      Now who is it we're meeting Clown?
+    text: Yeah, first time im outside of Sweden, a bit too warm for my taste. Now
+      who is it we're meeting Clown?
     portrait: {fileID: -5769496865783770079, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
     speakerOnLeft: 0
   - speakerName: Pagliacci
-    text: My friends, meet Don Giovanni. He has been tracking these troublemakers
-      ever since they first struck our friends in down Mobile, Alabama.
+    text: My friends, meet Don Giovanni. He  was present when our friends show in
+      Mobile, Alabama was crashed.
     portrait: {fileID: 1868944637151657545, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
     speakerOnLeft: 1
   - speakerName: Don Giovanni
-    text: Bongiorno, Pagliacci told me your performance was crashed by strange men?
+    text: Hello, what Pagliacci told you is true. Was your performance also crashed
+      by strange men?
     portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 1
   - speakerName: The King
-    text: Thats right Mr Giovanni, you have a clue who these hound-dogs are?
+    text: Thats right Mr Giovanni, you have a clue who these guys are?
     portrait: {fileID: -5769496865783770079, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
     speakerOnLeft: 0
   - speakerName: Don Giovanni
     text: I am in contact with people of the performing and musical arts across the
-      world. Seems these men have tried to interrupt acts, but I think I-
+      world. Seems these men have tried to interrupt acts wherever there is an artist
+      performing, but for what end I am not certain.
     portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 1
-  - speakerName: Stranger
-    text: '*crash*'
+  - speakerName: Don Giovanni
+    text: 'I was in Alabama with my troupe of performers last week visiting our friends,
+      thats where we were attacked. It was a local show, nothing big. We fought them
+      of with the local acts but there were too many of them, they abducted many
+      of the performers, disappearing into the night. '
+    portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Don Giovanni
+    text: We're only here because we managed to hide last second in a big locker
+      backstage.
+    portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Don Giovanni
+    text: Ever since we wish to remain anonymous, so we keep our masks on. You have
+      already met pagliacci, with me as well i have the bull fighter from Carmen.
+    portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Toreador
+    text: Hello, nice to meet you.
+    portrait: {fileID: 1422787415573463666, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Don Giovanni
+    text: Me and the rest of my troupe do not want to stay in hiding from these brutes.
+      We wish to understand who is sending these men.
     portrait: {fileID: -3008126765985210772, guid: 14ebe5b5c1d2d9f43ae5ebe41484236c, type: 3}
     speakerOnLeft: 1
-  - speakerName: Stranger
-    text: "I must destroy you, Vincer\xF2!"
-    portrait: {fileID: -3008126765985210772, guid: 14ebe5b5c1d2d9f43ae5ebe41484236c, type: 3}
+  - speakerName: Don Giovanni
+    text: We plan to gather performers of all stripes to face the next wave head
+      on, maybe we can capture one of these strangers.
+    portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 1
   - speakerName: Toreador
     text: Hey guys, I heard a noise?
     portrait: {fileID: 1422787415573463666, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
-    speakerOnLeft: 0
+    speakerOnLeft: 1
+  - speakerName: Stranger
+    text: I must destroy you!
+    portrait: {fileID: -3008126765985210772, guid: 14ebe5b5c1d2d9f43ae5ebe41484236c, type: 3}
+    speakerOnLeft: 1
   - speakerName: Don Giovanni
-    text: Yes, the strange men have arrivedercied, lets go!
+    text: Oh no, they must have followed us here! To arms people!
     portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
-    speakerOnLeft: 0
+    speakerOnLeft: 1
