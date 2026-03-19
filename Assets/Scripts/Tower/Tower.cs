@@ -27,6 +27,21 @@ public class Tower : MonoBehaviour
     private float effectiveDamage, effectiveRange, effectiveFireRate, effectiveProjectileSpeed;
     private float effectiveDotDamage, effectiveDotDuration, effectiveSlowPct, effectiveSlowDuration;
     private GameObject effectiveProjectilePrefab;
+    private bool effectiveBurstFire;
+    private int effectiveBurstShotsPerBurst;
+    private float effectiveBurstShotInterval;
+    private float effectiveBurstCooldown;
+
+    private float burstReloadRemaining;
+    private float burstInnerRemaining;
+    private int burstShotsRemainingInVolley;
+    private int burstShotsFiredInVolley;
+
+    private TowerTargetPriority effectiveTargetPriority;
+    private TowerStatusAvoidMode effectiveAvoidStatus;
+    private bool hasTargetPriorityOverride;
+    private bool hasAvoidStatusOverride;
+    private readonly List<Enemy> targetingScratch = new List<Enemy>();
 
     public TowerData Data => towerData;
     public bool IsPlaced { get; private set; } = false;
@@ -35,11 +50,51 @@ public class Tower : MonoBehaviour
     public float EffectiveDamage => effectiveDamage;
     public float EffectiveRange => effectiveRange;
     public float EffectiveFireRate => effectiveFireRate;
+    /// <summary>True when this tower uses burst firing (from Tower Data).</summary>
+    public bool UsesBurstFire => effectiveBurstFire;
+    public int EffectiveBurstShotsPerBurst => effectiveBurstShotsPerBurst;
+    public float EffectiveBurstShotInterval => effectiveBurstShotInterval;
+    public float EffectiveBurstCooldown => effectiveBurstCooldown;
+    /// <summary>Average shots per second over a full burst cycle (for comparison with continuous towers).</summary>
+    public float EffectiveSustainedFireRate
+    {
+        get
+        {
+            if (!effectiveBurstFire || effectiveBurstShotsPerBurst <= 0) return effectiveFireRate;
+            float cycle = effectiveBurstCooldown + (effectiveBurstShotsPerBurst - 1) * effectiveBurstShotInterval;
+            if (cycle <= 0f) return effectiveFireRate;
+            return effectiveBurstShotsPerBurst / cycle;
+        }
+    }
     public float EffectiveProjectileSpeed => effectiveProjectileSpeed;
     public float EffectiveDotDamage => effectiveDotDamage;
     public float EffectiveDotDuration => effectiveDotDuration;
     public float EffectiveSlowPercentage => effectiveSlowPct;
     public float EffectiveSlowDuration => effectiveSlowDuration;
+    public TowerTargetPriority EffectiveTargetPriority => effectiveTargetPriority;
+    public TowerStatusAvoidMode EffectiveAvoidStatus => effectiveAvoidStatus;
+
+    /// <summary>Override target priority for this specific tower instance (persists across upgrades).</summary>
+    public void SetTargetPriority(TowerTargetPriority newPriority, bool persistOverride = true)
+    {
+        effectiveTargetPriority = newPriority;
+        if (persistOverride)
+            hasTargetPriorityOverride = true;
+
+        // Force retargeting next frame.
+        currentTarget = null;
+    }
+
+    /// <summary>Override status avoidance for this specific tower instance (persists across upgrades).</summary>
+    public void SetAvoidStatus(TowerStatusAvoidMode newMode, bool persistOverride = true)
+    {
+        effectiveAvoidStatus = newMode;
+        if (persistOverride)
+            hasAvoidStatusOverride = true;
+
+        // Force retargeting next frame.
+        currentTarget = null;
+    }
 
     private CircleCollider2D rangeCollider;
     private SpriteRenderer rangeIndicator;
@@ -113,15 +168,75 @@ public class Tower : MonoBehaviour
         if (currentTarget != null && Time.time >= toreadorAbilityActiveUntil)
         {
             RotateTowardsTarget();
-            
-            fireTimer += Time.deltaTime;
-            float cooldown = effectiveFireRate > 0f ? 1f / effectiveFireRate : 1f; // effectiveFireRate = shots per second
-            if (fireTimer >= cooldown)
+
+            if (effectiveBurstFire)
+                UpdateBurstFiring();
+            else
             {
-                Fire();
-                fireTimer = 0f;
+                fireTimer += Time.deltaTime;
+                float cooldown = effectiveFireRate > 0f ? 1f / effectiveFireRate : 1f; // effectiveFireRate = shots per second
+                if (fireTimer >= cooldown)
+                {
+                    Fire();
+                    fireTimer = 0f;
+                }
             }
         }
+        else if (currentTarget == null)
+        {
+            ResetBurstStateOnLostTarget();
+        }
+    }
+
+    private void ResetBurstStateOnLostTarget()
+    {
+        burstReloadRemaining = 0f;
+        burstInnerRemaining = 0f;
+        burstShotsRemainingInVolley = 0;
+        burstShotsFiredInVolley = 0;
+    }
+
+    private void UpdateBurstFiring()
+    {
+        if (burstReloadRemaining > 0f)
+            burstReloadRemaining -= Time.deltaTime;
+
+        if (burstShotsRemainingInVolley > 0)
+        {
+            burstInnerRemaining -= Time.deltaTime;
+            if (burstInnerRemaining <= 0f)
+            {
+                // Re-select before every burst shot so targeting can switch mid-burst.
+                // When we already fired at the previous target in this volley, predict that the next
+                // projectile will apply an avoided status (so we don't keep spamming the same target).
+                bool predictCurrentTargetWillBeAvoided = burstShotsFiredInVolley > 0;
+                SelectTargetForShot(predictCurrentTargetWillBeAvoided);
+
+                Fire();
+                burstShotsFiredInVolley++;
+                burstShotsRemainingInVolley--;
+                if (burstShotsRemainingInVolley > 0)
+                    burstInnerRemaining = effectiveBurstShotInterval;
+                else
+                    burstReloadRemaining = effectiveBurstCooldown;
+            }
+            return;
+        }
+
+        if (burstReloadRemaining > 0f)
+            return;
+
+        // Start a new burst (first shot immediately). No prediction yet: the first projectile
+        // hasn't been "queued" multiple times in this volley.
+        SelectTargetForShot(false);
+
+        Fire();
+        burstShotsFiredInVolley = 1;
+        burstShotsRemainingInVolley = effectiveBurstShotsPerBurst - 1;
+        if (burstShotsRemainingInVolley > 0)
+            burstInnerRemaining = effectiveBurstShotInterval;
+        else
+            burstReloadRemaining = effectiveBurstCooldown;
     }
 
     private void SetupRangeIndicator()
@@ -208,6 +323,17 @@ public class Tower : MonoBehaviour
 
     protected virtual void UpdateTarget()
     {
+        SelectTargetForShot(false);
+    }
+
+    /// <summary>
+    /// Selects the next target enemy.
+    /// If <paramref name="predictCurrentTargetWillBeAvoided"/> is true, the currentTarget is temporarily
+    /// treated as if it will gain an avoided status from the next queued shot (useful for burst timing
+    /// where projectiles haven't hit yet).
+    /// </summary>
+    private void SelectTargetForShot(bool predictCurrentTargetWillBeAvoided)
+    {
         // Remove null or destroyed enemies
         enemiesInRange.RemoveAll(e => e == null || !e.gameObject.activeInHierarchy);
 
@@ -217,26 +343,164 @@ public class Tower : MonoBehaviour
             return;
         }
 
-        // Find closest enemy
-        Enemy closestEnemy = null;
-        float closestDistance = float.MaxValue;
-
-        foreach (Enemy enemy in enemiesInRange)
+        List<Enemy> pool = enemiesInRange;
+        if (effectiveAvoidStatus != TowerStatusAvoidMode.None)
         {
-            if (enemy == null) continue;
-            
-            float distance = Vector2.Distance(transform.position, enemy.transform.position);
-            if (distance < closestDistance)
+            targetingScratch.Clear();
+            for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                closestDistance = distance;
-                closestEnemy = enemy;
+                Enemy e = enemiesInRange[i];
+                if (e == null) continue;
+                if (!EnemyHasAvoidedStatusForFilter(e, predictCurrentTargetWillBeAvoided))
+                    targetingScratch.Add(e);
+            }
+
+            if (targetingScratch.Count > 0)
+                pool = targetingScratch;
+        }
+
+        currentTarget = PickEnemyByPriority(pool);
+    }
+
+    private bool WouldNextShotApplyAvoidedStatus()
+    {
+        bool wouldApplySlow = effectiveSlowDuration > 0f && effectiveSlowPct > 0f;
+        bool wouldApplyDoT = effectiveDotDuration > 0f && effectiveDotDamage > 0f;
+
+        switch (effectiveAvoidStatus)
+        {
+            case TowerStatusAvoidMode.PreferWithoutSlow:
+                return wouldApplySlow;
+            case TowerStatusAvoidMode.PreferWithoutDoT:
+                return wouldApplyDoT;
+            case TowerStatusAvoidMode.PreferWithoutSlowOrDoT:
+                return wouldApplySlow || wouldApplyDoT;
+            default:
+                return false;
+        }
+    }
+
+    /// <summary>True if enemy has a status this tower tries to avoid targeting (when filter is active).</summary>
+    private bool EnemyHasAvoidedStatusForFilter(Enemy e, bool predictCurrentTargetWillBeAvoided)
+    {
+        bool hasStatus = false;
+        switch (effectiveAvoidStatus)
+        {
+            case TowerStatusAvoidMode.PreferWithoutSlow:
+                hasStatus = e.IsSlowActive;
+                break;
+            case TowerStatusAvoidMode.PreferWithoutDoT:
+                hasStatus = e.HasActiveDoT;
+                break;
+            case TowerStatusAvoidMode.PreferWithoutSlowOrDoT:
+                hasStatus = e.IsSlowActive || e.HasActiveDoT;
+                break;
+            default:
+                hasStatus = false;
+                break;
+        }
+
+        if (hasStatus) return true;
+
+        // Prediction: if the queued shot would apply an avoided status to the current target, exclude it now.
+        if (predictCurrentTargetWillBeAvoided && e == currentTarget && WouldNextShotApplyAvoidedStatus())
+            return true;
+
+        return false;
+    }
+
+    private Enemy PickEnemyByPriority(List<Enemy> pool)
+    {
+        if (pool == null || pool.Count == 0) return null;
+
+        Vector2 towerPos = transform.position;
+        switch (effectiveTargetPriority)
+        {
+            case TowerTargetPriority.FirstOnPath:
+                return PickBestByFloat(pool, towerPos, e => e.GetPathProgress01(), true);
+            case TowerTargetPriority.MostHealth:
+                return PickBestByFloat(pool, towerPos, e => e.CurrentHealth, true);
+            case TowerTargetPriority.LeastHealth:
+                return PickBestByFloat(pool, towerPos, e => e.CurrentHealth, false);
+            case TowerTargetPriority.Closest:
+            default:
+                return PickClosest(pool, towerPos);
+        }
+    }
+
+    private static Enemy PickClosest(List<Enemy> pool, Vector2 towerPos)
+    {
+        Enemy best = null;
+        float bestSq = float.MaxValue;
+        for (int i = 0; i < pool.Count; i++)
+        {
+            Enemy e = pool[i];
+            if (e == null) continue;
+            float sq = ((Vector2)e.transform.position - towerPos).sqrMagnitude;
+            if (sq < bestSq)
+            {
+                bestSq = sq;
+                best = e;
             }
         }
+        return best;
+    }
 
-        if (closestEnemy != currentTarget)
+    private delegate float EnemyScoreFn(Enemy e);
+
+    /// <param name="higherIsBetter">If true, pick max score; else min. Ties broken by closer to tower.</param>
+    private static Enemy PickBestByFloat(List<Enemy> pool, Vector2 towerPos, EnemyScoreFn score, bool higherIsBetter)
+    {
+        Enemy best = null;
+        float bestScore = 0f;
+        float bestTieSq = float.MaxValue;
+        bool have = false;
+
+        for (int i = 0; i < pool.Count; i++)
         {
-            currentTarget = closestEnemy;
+            Enemy e = pool[i];
+            if (e == null) continue;
+            float s = score(e);
+            float sq = ((Vector2)e.transform.position - towerPos).sqrMagnitude;
+            if (!have)
+            {
+                best = e;
+                bestScore = s;
+                bestTieSq = sq;
+                have = true;
+                continue;
+            }
+
+            if (higherIsBetter)
+            {
+                if (s > bestScore)
+                {
+                    best = e;
+                    bestScore = s;
+                    bestTieSq = sq;
+                }
+                else if (Mathf.Approximately(s, bestScore) && sq < bestTieSq)
+                {
+                    best = e;
+                    bestTieSq = sq;
+                }
+            }
+            else
+            {
+                if (s < bestScore)
+                {
+                    best = e;
+                    bestScore = s;
+                    bestTieSq = sq;
+                }
+                else if (Mathf.Approximately(s, bestScore) && sq < bestTieSq)
+                {
+                    best = e;
+                    bestTieSq = sq;
+                }
+            }
         }
+        return best;
     }
 
     protected virtual void RotateTowardsTarget()
@@ -394,6 +658,24 @@ public class Tower : MonoBehaviour
         return true;
     }
 
+    /// <summary>Base tower cost plus all upgrade costs paid on this instance.</summary>
+    public int GetTotalInvestedCurrency()
+    {
+        if (towerData == null) return 0;
+        int total = towerData.cost;
+        foreach (TowerUpgradeNode u in appliedUpgrades)
+        {
+            if (u != null) total += u.cost;
+        }
+        return total;
+    }
+
+    /// <summary>Currency returned when selling this tower (fraction of total invested, floored).</summary>
+    public int GetSellRefundAmount(float refundFraction = 0.5f)
+    {
+        return Mathf.FloorToInt(GetTotalInvestedCurrency() * Mathf.Clamp01(refundFraction));
+    }
+
     private void RefreshEffectiveStats()
     {
         if (towerData == null) return;
@@ -412,6 +694,17 @@ public class Tower : MonoBehaviour
         effectiveRange = Mathf.Max(0.1f, r);
         effectiveFireRate = Mathf.Max(0.01f, fr);
         effectiveProjectileSpeed = Mathf.Max(0.1f, ps);
+
+        effectiveBurstFire = towerData.burstFire;
+        effectiveBurstShotsPerBurst = Mathf.Max(1, towerData.burstShotsPerBurst);
+        effectiveBurstShotInterval = Mathf.Max(0.02f, towerData.burstShotInterval);
+        effectiveBurstCooldown = Mathf.Max(0.05f, towerData.burstCooldown);
+
+        // Respect runtime overrides (e.g. from UI).
+        if (!hasTargetPriorityOverride)
+            effectiveTargetPriority = towerData.targetPriority;
+        if (!hasAvoidStatusOverride)
+            effectiveAvoidStatus = towerData.avoidTargetingIfStatus;
         effectiveDotDamage = dotD;
         effectiveDotDuration = dotDur;
         effectiveSlowPct = Mathf.Clamp01(slowP);

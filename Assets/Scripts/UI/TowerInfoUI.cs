@@ -16,11 +16,24 @@ public class TowerInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fireRateText;
     [SerializeField] private TextMeshProUGUI damageText;
     [SerializeField] private TextMeshProUGUI projectileSpeedText;
+    [SerializeField] private TextMeshProUGUI targetPriorityText;
     [SerializeField] private TextMeshProUGUI dotDamageText; // Optional: DoT damage display
     [SerializeField] private TextMeshProUGUI dotDurationText; // Optional: DoT duration display
     [SerializeField] private TextMeshProUGUI slowPercentageText; // Optional: Slow percentage display
     [SerializeField] private TextMeshProUGUI slowDurationText; // Optional: Slow duration display
     [SerializeField] private Button closeButton;
+
+    [Header("Targeting Priority Controls (optional)")]
+    [Tooltip("If assigned, cycles targeting priority + avoid-status together with left/right arrows.")]
+    [SerializeField] private Button targetPriorityLeftButton;
+    [SerializeField] private Button targetPriorityRightButton;
+
+    [Header("Sell / Remove tower")]
+    [Tooltip("Removes the selected tower and refunds a fraction of total spent (base + upgrades).")]
+    [SerializeField] private Button removeTowerButton;
+    [SerializeField] private TextMeshProUGUI removeTowerRefundText;
+    [Range(0f, 1f)]
+    [SerializeField] private float sellRefundFraction = 0.5f;
 
     [Header("Ability (Toreador, optional)")]
     [Tooltip("Show when selected tower has Toreador ability (e.g. level 3 Opera).")]
@@ -51,6 +64,30 @@ public class TowerInfoUI : MonoBehaviour
     private TowerSelectionUI towerSelectionUI;
     private bool justClickedTower = false; // Flag to prevent immediate close after tower click
     private float refreshTimer; // Refresh panel when open so next upgrade and afford state update
+
+    private struct TargetingMode
+    {
+        public TowerTargetPriority priority;
+        public TowerStatusAvoidMode avoid;
+
+        public TargetingMode(TowerTargetPriority p, TowerStatusAvoidMode a)
+        {
+            priority = p;
+            avoid = a;
+        }
+    }
+
+    // Main cycling order (no Closest):
+    // FirstOnPath (none) -> MostHP (none) -> LeastHP (none) -> AvoidSlow/DoT variants
+    private static readonly TargetingMode[] TargetingModeCycle =
+    {
+        new TargetingMode(TowerTargetPriority.FirstOnPath, TowerStatusAvoidMode.None),
+        new TargetingMode(TowerTargetPriority.MostHealth, TowerStatusAvoidMode.None),
+        new TargetingMode(TowerTargetPriority.LeastHealth, TowerStatusAvoidMode.None),
+        new TargetingMode(TowerTargetPriority.FirstOnPath, TowerStatusAvoidMode.PreferWithoutSlow),
+        new TargetingMode(TowerTargetPriority.FirstOnPath, TowerStatusAvoidMode.PreferWithoutDoT),
+        new TargetingMode(TowerTargetPriority.FirstOnPath, TowerStatusAvoidMode.PreferWithoutSlowOrDoT)
+    };
 
     private void Awake()
     {
@@ -138,6 +175,17 @@ public class TowerInfoUI : MonoBehaviour
             closeButton.onClick.AddListener(CloseInfoPanel);
         }
 
+        if (targetPriorityLeftButton != null)
+            targetPriorityLeftButton.onClick.AddListener(OnTargetPriorityLeftClicked);
+        if (targetPriorityRightButton != null)
+            targetPriorityRightButton.onClick.AddListener(OnTargetPriorityRightClicked);
+
+        // Avoid status is cycled together with target priority via the main arrows.
+        // (These optional fields can remain in the scene; they are intentionally not wired.)
+
+        if (removeTowerButton != null)
+            removeTowerButton.onClick.AddListener(OnRemoveTowerClicked);
+
         if (upgradeButton != null)
             upgradeButton.onClick.AddListener(OnUpgradeSingleClicked);
         if (upgradeLeftButton != null && upgradeLeftButton != upgradeButton)
@@ -196,6 +244,58 @@ public class TowerInfoUI : MonoBehaviour
         }
         if (selectedTower.TryUseToreadorAbility())
             UpdateUI();
+    }
+
+    private void OnRemoveTowerClicked()
+    {
+        if (selectedTower == null || !selectedTower.IsPlaced)
+            return;
+
+        int refund = selectedTower.GetSellRefundAmount(sellRefundFraction);
+        Tower tower = selectedTower;
+        GameObject towerObject = tower.gameObject;
+
+        selectedTower = null;
+        tower.ShowRange(false);
+        CloseInfoPanel();
+
+        if (CurrencyManager.Instance != null && refund > 0)
+            CurrencyManager.Instance.AddCurrency(refund);
+
+        if (towerObject != null)
+            Destroy(towerObject);
+    }
+
+    private void OnTargetPriorityLeftClicked() => CycleTargetPriority(-1);
+    private void OnTargetPriorityRightClicked() => CycleTargetPriority(1);
+
+    private void CycleTargetPriority(int direction)
+    {
+        if (selectedTower == null) return;
+
+        TowerTargetPriority currentPriority = selectedTower.EffectiveTargetPriority;
+        TowerStatusAvoidMode currentAvoid = selectedTower.EffectiveAvoidStatus;
+
+        int idx = 0;
+        bool found = false;
+        for (int i = 0; i < TargetingModeCycle.Length; i++)
+        {
+            if (TargetingModeCycle[i].priority == currentPriority && TargetingModeCycle[i].avoid == currentAvoid)
+            {
+                idx = i;
+                found = true;
+                break;
+            }
+        }
+        if (!found) idx = 0;
+
+        int next = (idx + direction) % TargetingModeCycle.Length;
+        if (next < 0) next += TargetingModeCycle.Length;
+
+        TargetingMode mode = TargetingModeCycle[next];
+        selectedTower.SetTargetPriority(mode.priority);
+        selectedTower.SetAvoidStatus(mode.avoid);
+        UpdateUI();
     }
 
     private void Update()
@@ -388,15 +488,47 @@ public class TowerInfoUI : MonoBehaviour
             costText.text = $"Cost: ${data.cost}";
         }
 
+        if (removeTowerRefundText != null)
+        {
+            int refund = selectedTower.GetSellRefundAmount(sellRefundFraction);
+            int invested = selectedTower.GetTotalInvestedCurrency();
+            int pct = Mathf.RoundToInt(sellRefundFraction * 100f);
+            removeTowerRefundText.text = $"Sell for ${refund}";
+            removeTowerRefundText.gameObject.SetActive(selectedTower.IsPlaced);
+        }
+
+        if (removeTowerButton != null)
+        {
+            removeTowerButton.gameObject.SetActive(selectedTower.IsPlaced);
+            removeTowerButton.interactable = selectedTower.IsPlaced;
+        }
+
         // Use effective stats (base + upgrades)
         if (rangeText != null)
             rangeText.text = $"Range: {selectedTower.EffectiveRange:F1}";
         if (fireRateText != null)
-            fireRateText.text = $"Fire Rate: {selectedTower.EffectiveFireRate:F2}/s";
+        {
+            if (selectedTower.UsesBurstFire)
+            {
+                int n = selectedTower.EffectiveBurstShotsPerBurst;
+                float gap = selectedTower.EffectiveBurstShotInterval;
+                float cd = selectedTower.EffectiveBurstCooldown;
+                float avg = selectedTower.EffectiveSustainedFireRate;
+                fireRateText.text = $"Burst: {n} shots ({gap:F2}s apart), {cd:F2}s reload  (~{avg:F2}/s avg)";
+            }
+            else
+                fireRateText.text = $"Fire Rate: {selectedTower.EffectiveFireRate:F2}/s";
+        }
         if (damageText != null)
             damageText.text = $"Damage: {selectedTower.EffectiveDamage:F0}";
         if (projectileSpeedText != null)
             projectileSpeedText.text = $"Projectile Speed: {selectedTower.EffectiveProjectileSpeed:F1}";
+
+        if (targetPriorityText != null)
+        {
+            targetPriorityText.text = FormatTargetingSummary(selectedTower);
+            targetPriorityText.gameObject.SetActive(true);
+        }
 
         if (dotDamageText != null)
         {
@@ -545,5 +677,24 @@ public class TowerInfoUI : MonoBehaviour
     {
         return UnityEngine.EventSystems.EventSystem.current != null &&
                UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+    }
+
+    private static string FormatTargetingSummary(Tower tower)
+    {
+        string mode = tower.EffectiveTargetPriority switch
+        {
+            TowerTargetPriority.FirstOnPath => "First on path",
+            TowerTargetPriority.MostHealth => "Most HP",
+            TowerTargetPriority.LeastHealth => "Least HP",
+            _ => "First on path"
+        };
+        string avoid = tower.EffectiveAvoidStatus switch
+        {
+            TowerStatusAvoidMode.PreferWithoutSlow => "No slow",
+            TowerStatusAvoidMode.PreferWithoutDoT => "No DoT",
+            TowerStatusAvoidMode.PreferWithoutSlowOrDoT => "No slow/DoT",
+            _ => ""
+        };
+        return string.IsNullOrEmpty(avoid) ? mode : $"{mode} ({avoid})";
     }
 }

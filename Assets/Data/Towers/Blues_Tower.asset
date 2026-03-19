@@ -19,12 +19,18 @@ MonoBehaviour:
   cost: 60
   range: 2.5
   fireRate: 1
-  damage: 50
+  damage: 10
   projectileSpeed: 5
-  dotDamage: 5
-  dotDuration: 10
+  dotDamage: 10
+  dotDuration: 7
   slowPercentage: 0
   slowDuration: 0
+  burstFire: 1
+  burstShotsPerBurst: 3
+  burstShotInterval: 0.12
+  burstCooldown: 1.25
+  targetPriority: 0
+  avoidTargetingIfStatus: 0
   projectilePrefab: {fileID: 3057394619383153864, guid: 4449261dee97db7448b789cf6212f090, type: 3}
   baseAnimatorController: {fileID: 0}
   rootUpgrade: {fileID: 11400000, guid: f8c63e32e9643f8409ddbbd5d023cdd9, type: 2}

@@ -47,6 +47,15 @@ public class Enemy : MonoBehaviour
     public float MaxHealth => enemyData != null ? enemyData.maxHealth : 100f;
     public float HealthPercentage => MaxHealth > 0 ? health / MaxHealth : 0f;
 
+    /// <summary>For UI/VFX: enemy is currently slowed.</summary>
+    public bool IsSlowActive => slowTimer > 0f && slowPercentage > 0f;
+    /// <summary>For UI/VFX: DoT is ticking.</summary>
+    public bool HasActiveDoT => dotTimer > 0f && dotDamage > 0f;
+    public bool IsInitialized => isInitialized;
+
+    /// <summary>0 = path start, 1 = path end. Uses nearest point on path (works when briefly off-path, e.g. Toreador pull).</summary>
+    public float PathProgress01 => GetPathProgress01();
+
     public event Action<float> OnHealthChanged;
 
     private SpriteRenderer spriteRenderer;
@@ -117,6 +126,8 @@ public class Enemy : MonoBehaviour
         currentWaypointIndex = 0;
         distanceTraveled = 0f;
         segmentProgress = 0f;
+
+        GetComponent<EnemyStatusVisuals>()?.CaptureBaseFromRenderer();
     }
 
     private void Update()
@@ -271,6 +282,48 @@ public class Enemy : MonoBehaviour
     {
         moveTowardTarget = worldPosition;
         moveTowardEndTime = Time.time + durationSeconds;
+    }
+
+    /// <summary>Normalized distance along the path (0–1) for targeting “first” enemies.</summary>
+    public float GetPathProgress01()
+    {
+        if (path == null || path.Waypoints.Count < 2 || !isInitialized)
+            return 0f;
+
+        path.GetNearestPointOnPath(transform.position, out int segmentIndex, out float segT);
+        return ComputeNormalizedDistanceAlongPath(segmentIndex, segT);
+    }
+
+    private float ComputeNormalizedDistanceAlongPath(int segmentIndex, float t)
+    {
+        float total = GetTotalPathWorldLength();
+        if (total < 0.0001f)
+            return 0f;
+
+        segmentIndex = Mathf.Clamp(segmentIndex, 0, Mathf.Max(0, path.Waypoints.Count - 2));
+        t = Mathf.Clamp01(t);
+
+        float dist = 0f;
+        for (int i = 0; i < segmentIndex; i++)
+            dist += Vector2.Distance(path.GetWorldWaypoint(i), path.GetWorldWaypoint(i + 1));
+
+        if (segmentIndex < path.Waypoints.Count - 1)
+        {
+            float segLen = Vector2.Distance(path.GetWorldWaypoint(segmentIndex), path.GetWorldWaypoint(segmentIndex + 1));
+            dist += segLen * t;
+        }
+
+        return Mathf.Clamp01(dist / total);
+    }
+
+    private float GetTotalPathWorldLength()
+    {
+        if (path == null || path.Waypoints.Count < 2)
+            return 0f;
+        float len = 0f;
+        for (int i = 0; i < path.Waypoints.Count - 1; i++)
+            len += Vector2.Distance(path.GetWorldWaypoint(i), path.GetWorldWaypoint(i + 1));
+        return len;
     }
 
     private void RejoinPath()
