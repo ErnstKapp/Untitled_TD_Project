@@ -22,6 +22,12 @@ public class DialogueManager : MonoBehaviour
     private int currentIndex;
     private Action onComplete;
 
+    /// <summary>True while a dialogue sequence is currently active.</summary>
+    public bool IsDialogueActive => currentDialogue != null;
+
+    /// <summary>Fired when the current dialogue ends (after the last line is advanced).</summary>
+    public event Action OnDialogueEnded;
+
     private void Awake()
     {
         if (Instance == null)
@@ -101,6 +107,7 @@ public class DialogueManager : MonoBehaviour
         if (data == null || data.lines == null || data.lines.Length == 0)
         {
             onCompleteCallback?.Invoke();
+            OnDialogueEnded?.Invoke();
             return;
         }
 
@@ -148,6 +155,7 @@ public class DialogueManager : MonoBehaviour
         currentDialogue = null;
         Action callback = onComplete;
         onComplete = null;
+        OnDialogueEnded?.Invoke();
         callback?.Invoke();
     }
 }

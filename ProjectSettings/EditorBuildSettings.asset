@@ -26,4 +26,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Swamp_Scene.unity
     guid: 9b0c1a31284d4a8448d0503226fe6ac8
+  - enabled: 1
+    path: Assets/Scenes/Pop_Scene.unity
+    guid: 14a5aa5c616aa91409d13725ada27b32
+  - enabled: 1
+    path: Assets/Scenes/Lvl5_Scene.unity
+    guid: 06728b14a8de9564892d4a00c42d468a
+  - enabled: 1
+    path: Assets/Scenes/ProtoLLM_Scene.unity
+    guid: 8d0f9775ecd84ca45a65b489ae86b4eb
   m_configObjects: {}

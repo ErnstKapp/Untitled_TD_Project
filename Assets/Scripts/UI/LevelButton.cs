@@ -59,7 +59,7 @@ public class LevelButton : MonoBehaviour
     {
         if (string.IsNullOrEmpty(sceneNameToLoad))
         {
-            Debug.LogWarning("[LevelButton] sceneNameToLoad is empty! Set it in the Inspector.");
+            Debug.LogWarning($"[LevelButton] sceneNameToLoad is empty! Set it in the Inspector. (buttonObject='{gameObject.name}', component='{nameof(LevelButton)}')");
             return;
         }
         EnsureLevelProgressionManager();
@@ -111,7 +111,7 @@ public class LevelButton : MonoBehaviour
         
         if (string.IsNullOrEmpty(sceneNameToLoad))
         {
-            Debug.LogWarning("[LevelButton] Scene name is not set! Cannot check unlock status.");
+            Debug.LogWarning($"[LevelButton] Scene name is not set! Cannot check unlock status. (buttonObject='{gameObject.name}')");
             isUnlocked = false;
         }
         else if (LevelProgressionManager.Instance == null)

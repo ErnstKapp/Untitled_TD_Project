@@ -191,10 +191,30 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 62
-      y: 51
+      y: 50
       width: 50
-      height: 50
+      height: 51
     spriteID: 641ff0270cfff914b8b8b19c1c8e8de2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: Stadium_Map_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 62
+      y: 2
+      width: 50
+      height: 48
+    spriteID: 4d797c0e60153ca44a13c306845df21c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -222,7 +242,7 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 0
-        width: 98
+        width: 103
         height: 94
       spriteId: 29009d6bd891f2b44b19c94107b2a341
     linkedCells: []

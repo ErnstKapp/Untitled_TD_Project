@@ -44,10 +44,14 @@ MonoBehaviour:
     portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 1
   - speakerName: Don Giovanni
-    text: 'I was in Alabama with my troupe of performers last week visiting our friends,
-      thats where we were attacked. It was a local show, nothing big. We fought them
-      of with the local acts but there were too many of them, they abducted many
-      of the performers, disappearing into the night. '
+    text: I was in Alabama with my troupe of performers last week visiting our friends,
+      thats where we were attacked.
+    portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Don Giovanni
+    text: 'It was a local show, nothing big. We fought them of with the help of local
+      acts but there were too many of them, they abducted many of the performers,
+      disappearing into the night. '
     portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 1
   - speakerName: Don Giovanni
@@ -56,8 +60,14 @@ MonoBehaviour:
     portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 1
   - speakerName: Don Giovanni
-    text: Ever since we wish to remain anonymous, so we keep our masks on. You have
-      already met pagliacci, with me as well i have the bull fighter from Carmen.
+    text: Ever since that incident we have kept our masks on as to remain anonymous.
+      You have already met pagliacci, with me as well i have the bull fighter from
+      Carmen.
+    portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Don Giovanni
+    text: You have already met Pagliacci, but with me as well I have the bull fighter
+      from Carmen.
     portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 1
   - speakerName: Toreador
@@ -67,7 +77,7 @@ MonoBehaviour:
   - speakerName: Don Giovanni
     text: Me and the rest of my troupe do not want to stay in hiding from these brutes.
       We wish to understand who is sending these men.
-    portrait: {fileID: -3008126765985210772, guid: 14ebe5b5c1d2d9f43ae5ebe41484236c, type: 3}
+    portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 1
   - speakerName: Don Giovanni
     text: We plan to gather performers of all stripes to face the next wave head

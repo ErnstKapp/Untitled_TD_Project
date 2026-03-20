@@ -93,6 +93,11 @@ public class EndScreenUI : MonoBehaviour
     /// </summary>
     public void ShowEndScreen()
     {
+        // If the player already died (common when the final enemy triggers both
+        // "last wave complete" and "lose last life" in the same frame), don't show the victory screen.
+        if (GameManager.Instance != null && GameManager.Instance.CurrentLives <= 0)
+            return;
+
         if (hasShownEndScreen)
             return;
         hasShownEndScreen = true;

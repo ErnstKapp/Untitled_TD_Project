@@ -56,6 +56,7 @@ MonoBehaviour:
     m_Bits: 256
   towerAnimator: {fileID: 5332021707047333333}
   fireTriggerName: Fire
+  abilityTriggerName: Ability
 --- !u!58 &2134692612069501390
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -152,7 +153,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
