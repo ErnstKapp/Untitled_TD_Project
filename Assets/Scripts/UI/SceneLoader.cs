@@ -40,10 +40,12 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
-        if (LevelProgressionManager.Instance == null)
+        if (LevelProgressionManager.Instance == null && FindObjectOfType<LevelProgressionManager>(true) == null)
         {
+            LevelProgressionManager.BeginRuntimeSpawn();
             GameObject managerObj = new GameObject("LevelProgressionManager");
             managerObj.AddComponent<LevelProgressionManager>();
+            LevelProgressionManager.EndRuntimeSpawn();
         }
         
         if (!LevelProgressionManager.Instance.IsLevelUnlocked(sceneName))
@@ -134,6 +136,16 @@ public class SceneLoader : MonoBehaviour
         #else
         Application.Quit();
         #endif
+    }
+
+    /// <summary>
+    /// Saves the currently selected slot, then quits the game.
+    /// </summary>
+    public void SaveAndQuitGame()
+    {
+        int slot = SaveLoadManager.SelectedSlotIndex;
+        SaveLoadManager.SaveSlot(slot);
+        QuitGame();
     }
     
 }

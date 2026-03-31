@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
-/// Runs dialogue sequences. Use PlayDialogueOnLoad in a scene for intro dialogue, OverworldReturnDialogue for return-to-overworld dialogue.
+/// Runs dialogue sequences. Use PlayDialogueOnLoad in a scene for intro dialogue; overworld return dialogue is configured here (OverworldReturnDialogue is optional/legacy).
 /// </summary>
 public class DialogueManager : MonoBehaviour
 {
@@ -17,6 +18,12 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private DialogueData stadiumReturnDialogue;
     [Tooltip("Optional: plays when returning from Paris_Scene.")]
     [SerializeField] private DialogueData parisReturnDialogue;
+    [Tooltip("Optional: plays when returning from Swamp_Scene.")]
+    [SerializeField] private DialogueData swampReturnDialogue;
+    [Tooltip("Optional: plays when returning from ProtoLLM_Scene.")]
+    [SerializeField] private DialogueData protoLLMReturnDialogue;
+    [Tooltip("Optional: plays when returning from LLM_Scene.")]
+    [SerializeField] private DialogueData llmReturnDialogue;
 
     private DialogueData currentDialogue;
     private int currentIndex;
@@ -75,7 +82,7 @@ public class DialogueManager : MonoBehaviour
 
             // Play return dialogue from here so it works even if OverworldReturnDialogue isn't in the scene
             string last = LevelProgressionManager.LastCompletedLevel;
-            Debug.Log($"[DialogueManager] Overworld return check – LastCompletedLevel='{last ?? "(null)"}', stadiumReturnDialogue assigned={stadiumReturnDialogue != null}, parisReturnDialogue assigned={parisReturnDialogue != null}.");
+            Debug.Log($"[DialogueManager] Overworld return check – LastCompletedLevel='{last ?? "(null)"}', stadium={stadiumReturnDialogue != null}, paris={parisReturnDialogue != null}, swamp={swampReturnDialogue != null}, protoLLM={protoLLMReturnDialogue != null}, llm={llmReturnDialogue != null}.");
             if (string.IsNullOrEmpty(last))
             {
                 Debug.Log("[DialogueManager] Overworld return: LastCompletedLevel is null or empty, skipping (did you finish a level before returning?).");
@@ -85,16 +92,20 @@ public class DialogueManager : MonoBehaviour
                 DialogueData toPlay = null;
                 if (last == "Stadium_Scene") toPlay = stadiumReturnDialogue;
                 else if (last == "Paris_Scene") toPlay = parisReturnDialogue;
-                if (toPlay == null)
-                    Debug.Log($"[DialogueManager] Overworld return: no dialogue asset assigned for '{last}'. Assign Stadium Return Dialogue (or Paris) on DialogueManager in the Inspector.");
-                else if (toPlay.lines == null || toPlay.lines.Length == 0)
-                    Debug.Log($"[DialogueManager] Overworld return: dialogue '{toPlay.dialogueTitle}' has no lines.");
-                else
+                else if (last == "Swamp_Scene") toPlay = swampReturnDialogue;
+                else if (last == "ProtoLLM_Scene") toPlay = protoLLMReturnDialogue;
+                else if (last == "LLM_Scene") toPlay = llmReturnDialogue;
+
+                bool hasDialogue = toPlay != null && toPlay.lines != null && toPlay.lines.Length > 0;
+                if (!hasDialogue)
                 {
+                    Debug.Log($"[DialogueManager] Overworld return: no return dialogue configured for '{last}'.");
                     LevelProgressionManager.LastCompletedLevel = null;
-                    Debug.Log($"[DialogueManager] Overworld return: calling StartDialogue for '{toPlay.dialogueTitle}' ({toPlay.lines.Length} lines).");
-                    StartDialogue(toPlay, null);
+                    return;
                 }
+
+                LevelProgressionManager.LastCompletedLevel = null;
+                StartDialogue(toPlay, null);
             }
         }
     }

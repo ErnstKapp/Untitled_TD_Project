@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ProtoLLM_Scene.unity
     guid: 8d0f9775ecd84ca45a65b489ae86b4eb
+  - enabled: 1
+    path: Assets/Scenes/LLM_Scene.unity
+    guid: fd5834ed9491c284495285a1bc85c63f
   m_configObjects: {}

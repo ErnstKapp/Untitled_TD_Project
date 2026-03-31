@@ -93,6 +93,10 @@ public static class SaveLoadManager
         // Reset meta currency
         PlayerPrefs.SetInt(META_CURRENCY_KEY, 0);
 
+        // Reuse the existing overworld return-cutscene pipeline.
+        // Add a DialogueManager return cutscene config with completedLevelSceneName = "NewGameIntro".
+        LevelProgressionManager.LastCompletedLevel = "NewGameIntro";
+        
         // Reset level completion progression
         string[] order = LevelProgressionManager.GetProgressionOrder();
         for (int i = 0; i < order.Length; i++)
@@ -104,7 +108,6 @@ public static class SaveLoadManager
 
         // Ensure LevelProgressionManager won't "wipe" again on first run
         PlayerPrefs.SetInt(PROGRESSION_INITIALIZED_KEY, 1);
-        LevelProgressionManager.LastCompletedLevel = null;
 
         PlayerPrefs.Save();
         Debug.Log($"[SaveLoadManager] Started new game in slot {slotIndex} (fresh meta).");

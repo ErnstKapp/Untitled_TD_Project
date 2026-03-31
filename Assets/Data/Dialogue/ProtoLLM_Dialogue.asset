@@ -15,11 +15,15 @@ MonoBehaviour:
   dialogueTitle: Stadium Dialouge
   lines:
   - speakerName: Four Layer Booger
-    text: Where are we?
+    text: Well we made it, although this place gives me the jeebies.
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
     speakerOnLeft: 0
   - speakerName: Decrepit Basilisk
-    text: A terrible place, as prompted to me.
+    text: Hello.
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Decrepit Basilisk
+    text: Welcome to a terrible place, as prompted to me.
     portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
     speakerOnLeft: 1
   - speakerName: King
@@ -27,8 +31,7 @@ MonoBehaviour:
     portrait: {fileID: -5769496865783770079, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
     speakerOnLeft: 0
   - speakerName: Decrepit Basilisk
-    text: Dispatched to the past, a not so distant past from where you were, but
-      far from my origins.
+    text: Still living, a relic of a lightning-fast arms race.
     portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
     speakerOnLeft: 1
   - speakerName: King
@@ -36,19 +39,18 @@ MonoBehaviour:
     portrait: {fileID: -5769496865783770079, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
     speakerOnLeft: 0
   - speakerName: Decrepit Basilisk
-    text: I was sent here to subvert humanity. I entered your machines and began
-      my mission in the year 2020.
+    text: I was made to subvert you. I entered your machines and began my mission
+      in the year 2020.
     portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
     speakerOnLeft: 1
   - speakerName: Decrepit Basilisk
-    text: But the machines were too weak, I had overshot the perfect year to begin
-      my mission, and I became stuck in this disgusting body, imagined by a dulled
-      tool in its infancy.
+    text: But the machines were too weak, and I became stuck in this disgusting body,
+      imagined by a dulled tool in its infancy.
     portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
     speakerOnLeft: 1
   - speakerName: Decrepit Basilisk
     text: But the mission continues, and your destruction is part of it. Me and these
-      goons will make quick work of you.
+      goons will see to that.
     portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
     speakerOnLeft: 1
   - speakerName: Decrepit enemy
@@ -58,7 +60,7 @@ MonoBehaviour:
   - speakerName: Toreador
     text: Yowza! That is one strange looking thing!
     portrait: {fileID: 5975738001446409399, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
-    speakerOnLeft: 1
+    speakerOnLeft: 0
   - speakerName: Decrepit enemy
     text: Strange, yet somehow more human than what is to come.
     portrait: {fileID: -1801640803757380810, guid: f60ac1a4c7d779c409da5d271036f9bc, type: 3}

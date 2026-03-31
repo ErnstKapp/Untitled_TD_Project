@@ -85,11 +85,15 @@ public class LevelButton : MonoBehaviour
     
     private void EnsureLevelProgressionManager()
     {
-        if (LevelProgressionManager.Instance == null)
-        {
-            GameObject managerObj = new GameObject("LevelProgressionManager");
-            managerObj.AddComponent<LevelProgressionManager>();
-        }
+        if (LevelProgressionManager.Instance != null)
+            return;
+        if (FindObjectOfType<LevelProgressionManager>(true) != null)
+            return;
+
+        LevelProgressionManager.BeginRuntimeSpawn();
+        GameObject managerObj = new GameObject("LevelProgressionManager");
+        managerObj.AddComponent<LevelProgressionManager>();
+        LevelProgressionManager.EndRuntimeSpawn();
     }
 
     private void OnEnable()

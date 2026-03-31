@@ -17,7 +17,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 868210705554616403, guid: aff752c0a1dd9a242aaa11aa95b46fb1, type: 3}
   maxHealth: 140
   moveSpeed: 1
-  currencyReward: 10
+  currencyReward: 3
   damageToPlayer: 1
   weaknessGenre: 5
   weaknessDamageMultiplier: 1.5

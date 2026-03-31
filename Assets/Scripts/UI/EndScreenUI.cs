@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 /// <summary>
@@ -18,6 +19,13 @@ public class EndScreenUI : MonoBehaviour
     [Header("Settings")]
     [Tooltip("How much meta currency is earned per life remaining")]
     [SerializeField] private int metaCurrencyPerLife = 10;
+
+    [Tooltip("Victory Continue: fade this image in, then load overworld. Leave empty to load instantly.")]
+    [SerializeField] private Sprite victoryContinueFadeImage;
+    [Tooltip("Seconds for fade-in and fade-out of that image (hold before load stays 0.75s).")]
+    [SerializeField] private float victoryContinueFadeSeconds = 0.35f;
+    [Tooltip("Seconds to hold the cutscene image on screen before loading the overworld.")]
+    [SerializeField] private float victoryContinueHoldSeconds = 0.75f;
 
     private bool hasShownEndScreen = false;
     private bool isSubscribed = false;
@@ -131,10 +139,12 @@ public class EndScreenUI : MonoBehaviour
         }
 
         // Ensure LevelProgressionManager exists
-        if (LevelProgressionManager.Instance == null)
+        if (LevelProgressionManager.Instance == null && FindObjectOfType<LevelProgressionManager>(true) == null)
         {
+            LevelProgressionManager.BeginRuntimeSpawn();
             GameObject levelProgressionObj = new GameObject("LevelProgressionManager");
             levelProgressionObj.AddComponent<LevelProgressionManager>();
+            LevelProgressionManager.EndRuntimeSpawn();
         }
 
         // Mark level as completed so overworld can show next level button
@@ -189,7 +199,33 @@ public class EndScreenUI : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
-    
+
+    /// <summary>
+    /// Hook the victory Continue button here. Fades <see cref="victoryContinueFadeImage"/> in then loads Overworld_Scene.
+    /// </summary>
+    public void ContinueToOverworld()
+    {
+        if (endScreenPanel != null)
+            endScreenPanel.SetActive(false);
+        Time.timeScale = 1f;
+
+        const string overworld = "Overworld_Scene";
+        if (victoryContinueFadeImage != null)
+        {
+            float fade = Mathf.Max(0f, victoryContinueFadeSeconds);
+            SceneTransitionCutsceneOverlay.PlayAndLoad(
+                overworld,
+                victoryContinueFadeImage,
+                fade,
+                Mathf.Max(0f, victoryContinueHoldSeconds),
+                fade,
+                clickAnywhereToContinue: true);
+            return;
+        }
+
+        SceneManager.LoadScene(overworld);
+    }
+
     /// <summary>
     /// Test method to manually show the end screen (for debugging).
     /// </summary>

@@ -29,6 +29,16 @@ public class MetaLoadGamePopupUI : MonoBehaviour
     [Header("After Selection")]
     [SerializeField] private string sceneToLoadAfterLoad = "Overworld_Scene";
 
+    [Header("New Game Transition (mode = NewOnly, optional)")]
+    [SerializeField] private bool useMenuCutsceneTransition = true;
+    [SerializeField] private Sprite newGameTransitionImage;
+    [SerializeField] private float transitionFadeInSeconds = 0.35f;
+    [SerializeField] private float transitionHoldSeconds = 0.75f;
+    [SerializeField] private float transitionFadeOutSeconds = 0.45f;
+    [SerializeField] private bool clickAnywhereToContinue = true;
+    [Tooltip("If true, prevents the separate overworld return-cutscene trigger from running again for NewGameIntro.")]
+    [SerializeField] private bool consumeNewGameIntroMarkerWhenUsingTransition = true;
+
     [Header("Slot Buttons")]
     [SerializeField] private Button slot1Button;
     [SerializeField] private Button slot2Button;
@@ -112,6 +122,24 @@ public class MetaLoadGamePopupUI : MonoBehaviour
         else // NewOnly
         {
             SaveLoadManager.StartNewGameInSlot(slotIndex);
+
+            if (useMenuCutsceneTransition && newGameTransitionImage != null)
+            {
+                if (consumeNewGameIntroMarkerWhenUsingTransition &&
+                    string.Equals(LevelProgressionManager.LastCompletedLevel, "NewGameIntro", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    LevelProgressionManager.LastCompletedLevel = null;
+                }
+
+                SceneTransitionCutsceneOverlay.PlayAndLoad(
+                    sceneToLoadAfterLoad,
+                    newGameTransitionImage,
+                    transitionFadeInSeconds,
+                    transitionHoldSeconds,
+                    transitionFadeOutSeconds,
+                    clickAnywhereToContinue);
+                return;
+            }
         }
 
         ClosePopup();

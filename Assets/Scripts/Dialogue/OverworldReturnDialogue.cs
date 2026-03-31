@@ -2,7 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Add this to a GameObject in Overworld_Scene. When the player returns after finishing a level,
-/// it plays the matching dialogue (e.g. Stadium return). Uses LevelProgressionManager.LastCompletedLevel.
+/// it plays the matching dialogue. Uses LevelProgressionManager.LastCompletedLevel (DialogueManager usually handles this first).
 /// </summary>
 [AddComponentMenu("Dialogue/Overworld Return Dialogue")]
 public class OverworldReturnDialogue : MonoBehaviour
@@ -13,6 +13,15 @@ public class OverworldReturnDialogue : MonoBehaviour
 
     [Tooltip("Dialogue to play when coming back after finishing Paris_Scene (optional)")]
     [SerializeField] private DialogueData parisReturnDialogue;
+
+    [Tooltip("Dialogue to play when coming back after finishing Swamp_Scene (optional)")]
+    [SerializeField] private DialogueData swampReturnDialogue;
+
+    [Tooltip("Dialogue to play when coming back after finishing ProtoLLM_Scene (optional)")]
+    [SerializeField] private DialogueData protoLLMReturnDialogue;
+
+    [Tooltip("Dialogue to play when coming back after finishing LLM_Scene (optional)")]
+    [SerializeField] private DialogueData llmReturnDialogue;
 
     [Tooltip("Delay before showing dialogue (e.g. 0.3 so overworld is visible first)")]
     [SerializeField] private float delaySeconds = 0.3f;
@@ -31,6 +40,12 @@ public class OverworldReturnDialogue : MonoBehaviour
             toPlay = stadiumReturnDialogue;
         else if (last == "Paris_Scene")
             toPlay = parisReturnDialogue;
+        else if (last == "Swamp_Scene")
+            toPlay = swampReturnDialogue;
+        else if (last == "ProtoLLM_Scene")
+            toPlay = protoLLMReturnDialogue;
+        else if (last == "LLM_Scene")
+            toPlay = llmReturnDialogue;
 
         if (toPlay == null || toPlay.lines == null || toPlay.lines.Length == 0)
         {

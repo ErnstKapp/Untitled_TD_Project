@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3bea323d7045194c8f64259af0251b6, type: 3}
+  m_Name: SwampReturnDialogue
+  m_EditorClassIdentifier: 
+  dialogueTitle: Swamp Return Dialouge
+  lines:
+  - speakerName: Four Layer Booger
+    text: That was tense, you said you knew someone in Moldova satan?
+    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0
+  - speakerName: The Devil
+    text: Yeah bro more dialogue here
+    portrait: {fileID: -3941215291152558637, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
+    speakerOnLeft: 1

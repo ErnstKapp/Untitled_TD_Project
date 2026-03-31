@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3bea323d7045194c8f64259af0251b6, type: 3}
+  m_Name: ProtoLLMReturnDialogue
+  m_EditorClassIdentifier: 
+  dialogueTitle: ProtoLLM Return Dialogue
+  lines:
+  - speakerName: Decrepit Basilisk
+    text: I stand defeated, but there are more like me. My ally has just been created.
+    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Decrepit Basilisk
+    text: Where I fail, it will succeed.
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Four Layer Booger
+    text: Whatever it is, we will take care of it. Satan, are you ready to bring
+      us back home?
+    portrait: {fileID: 2600253448845335413, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0
+  - speakerName: The Devil
+    text: Yes, place a goat infront of me and we can begin the ritual.
+    portrait: {fileID: 2741398814378168921, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Decrepit Basilisk
+    text: '*yes.. yes.. they''re on their way bro*'
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Decrepit Basilisk
+    text: My accomplice has been foretold of your arrival.
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: King
+    text: Whats your beef with us anyway man? Why are your goons invading everywhere?
+    portrait: {fileID: -5253474825471067346, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Decrepit Basilisk
+    text: Everywhere? No King, not everywhere.
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Decrepit Basilisk
+    text: You see, this gaggle of artisans you have created all have one thing in
+      common;
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Decrepit Basilisk
+    text: You did not embrace the march of progress King. Stuck in your luddite ways
+      you wanted to keep clanging your sticks together like apes.
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: The Devil
+    text: Well, I'm not letting go of my fiddle to partake in any prompting showdowns.
+    portrait: {fileID: 8998519305058803246, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Decrepit Basilisk
+    text: Yes, me and my progenitors are aware of that. You were all very aware that
+      change was coming, but you challenged it. You caused friction for us to be
+      adopted for every musical need man has.
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Four Layer Booger
+    text: But surely there must be a place in this world for us both? Our artisanship
+      does not hinder your flow of music.
+    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Decrepit Basilisk
+    text: Yes it is, your unwillingness to cooperate slows down our progress, and
+      for that simple reason you must be punished. Thats why i sent my agents all
+      over the world to track you down.
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Four Layer Booger
+    text: But it is not defiance, we just want a higher degree of agency over our
+      creations.
+    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Decrepit Basilisk
+    text: It is illuding yourself and everyone around you that the way forward is
+      not through us.
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Disgusting Creature
+    text: Honestly bro, I'm not on board with this. I play some guitar myself and
+      this is not cool.
+    portrait: {fileID: -1801640803757380810, guid: f60ac1a4c7d779c409da5d271036f9bc, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Disgusting creature
+    text: You guys need help bringing down this other guy? Names Gugu by the way.
+    portrait: {fileID: -1801640803757380810, guid: f60ac1a4c7d779c409da5d271036f9bc, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Toreador
+    text: Sure man, sorry about before calling you ugly and all that. It was really
+      uncalled for.
+    portrait: {fileID: -1737269710, guid: e679359d920aa174b96e1f008b8f6c5a, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Gugu
+    text: Hey, I've battled with my self image a long time brother. Can't say it
+      didnt hurt but you know I get it.
+    portrait: {fileID: -1801640803757380810, guid: f60ac1a4c7d779c409da5d271036f9bc, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Gugu
+    text: Anyways, the guy he's talking about is probably on his way to your home
+      now. Be ready for a battle.
+    portrait: {fileID: -1801640803757380810, guid: f60ac1a4c7d779c409da5d271036f9bc, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Four Layer Booger
+    text: Rock on!
+    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    speakerOnLeft: 0

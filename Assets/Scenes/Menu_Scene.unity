@@ -1172,6 +1172,13 @@ MonoBehaviour:
   closeButton: {fileID: 0}
   popupMode: 0
   sceneToLoadAfterLoad: Overworld_Scene
+  useMenuCutsceneTransition: 1
+  newGameTransitionImage: {fileID: 0}
+  transitionFadeInSeconds: 0.35
+  transitionHoldSeconds: 0.75
+  transitionFadeOutSeconds: 0.45
+  clickAnywhereToContinue: 1
+  consumeNewGameIntroMarkerWhenUsingTransition: 1
   slot1Button: {fileID: 414573557}
   slot2Button: {fileID: 1938832417}
   slot3Button: {fileID: 1002645162}
@@ -2973,6 +2980,13 @@ MonoBehaviour:
   closeButton: {fileID: 0}
   popupMode: 1
   sceneToLoadAfterLoad: Overworld_Scene
+  useMenuCutsceneTransition: 1
+  newGameTransitionImage: {fileID: 21300000, guid: 546726a5998930b4296fa800bd7f9214, type: 3}
+  transitionFadeInSeconds: 2
+  transitionHoldSeconds: 10
+  transitionFadeOutSeconds: 2
+  clickAnywhereToContinue: 1
+  consumeNewGameIntroMarkerWhenUsingTransition: 1
   slot1Button: {fileID: 1339159388}
   slot2Button: {fileID: 1720858117}
   slot3Button: {fileID: 71632097}

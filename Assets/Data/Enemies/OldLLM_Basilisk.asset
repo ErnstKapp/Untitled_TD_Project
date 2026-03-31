@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548ec92ed7bfc6842bc1083a6c691f44, type: 3}
   m_Name: OldLLM_Basilisk
   m_EditorClassIdentifier: 
-  enemyName: Opera Enemy
+  enemyName: Decrepit Basilisk Enemy
   enemySprite: {fileID: 0}
   enemyPrefab: {fileID: 868210705554616403, guid: 5616cfb4366c19a4bae913529c7f4759, type: 3}
   maxHealth: 2000

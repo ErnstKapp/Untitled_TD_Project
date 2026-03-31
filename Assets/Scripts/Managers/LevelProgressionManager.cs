@@ -1,4 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 /// <summary>
 /// Manages level progression and tracks which levels are completed.
@@ -7,6 +10,21 @@ using UnityEngine;
 public class LevelProgressionManager : MonoBehaviour
 {
     public static LevelProgressionManager Instance { get; private set; }
+
+    /// <summary>Set true only while <see cref="AddComponent{T}"/> is creating a fallback manager (Menu / SceneLoader / LevelButton).</summary>
+    private static bool s_runtimeSpawnInProgress;
+
+    public static void BeginRuntimeSpawn()
+    {
+        s_runtimeSpawnInProgress = true;
+    }
+
+    public static void EndRuntimeSpawn()
+    {
+        s_runtimeSpawnInProgress = false;
+    }
+
+    private bool spawnedAtRuntime;
 
     // Ordered list of gameplay levels used for unlocking.
     // Make sure these names match your scenes' actual file names AND LevelButton.sceneNameToLoad values.
@@ -30,20 +48,38 @@ public class LevelProgressionManager : MonoBehaviour
 
     private const string LEVEL_COMPLETED_KEY_PREFIX = "LevelCompleted_";
     private const string PROGRESSION_INITIALIZED_KEY = "LevelProgression_Initialized";
+    private const string DEBUG_UNLOCK_ALL_KEY = "DEBUG_UnlockAllStages";
+
+    [Header("Debug")]
+    [Tooltip("Unlock all stages (on this instance). If DontDestroyOnLoad shows an empty checkbox, use Tools → Debug → Toggle Unlock All Stages — that uses PlayerPrefs and always works.")]
+    [SerializeField] private bool debugUnlockAllStages;
 
     private void Awake()
     {
+        spawnedAtRuntime = s_runtimeSpawnInProgress;
+
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
             EnsureCleanProgressionOnFirstRun();
-        }
-        else
-        {
-            Destroy(gameObject);
             return;
         }
+
+        if (Instance == this)
+            return;
+
+        // Menu/SceneLoader often spawn an empty manager first; Overworld's scene-placed manager must win so Inspector settings apply.
+        if (Instance.spawnedAtRuntime && !spawnedAtRuntime)
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            EnsureCleanProgressionOnFirstRun();
+            return;
+        }
+
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -104,6 +140,8 @@ public class LevelProgressionManager : MonoBehaviour
     public bool IsLevelUnlocked(string sceneName)
     {
         if (string.IsNullOrEmpty(sceneName)) return false;
+        if (debugUnlockAllStages || PlayerPrefs.GetInt(DEBUG_UNLOCK_ALL_KEY, 0) != 0)
+            return true;
         if (sceneName.IndexOf("Stadium", System.StringComparison.OrdinalIgnoreCase) >= 0)
             return true;
         // Hub/menu scenes are always loadable (New Game, etc.)
@@ -156,6 +194,33 @@ public class LevelProgressionManager : MonoBehaviour
         }
         Debug.Log("================================");
     }
+
+    [ContextMenu("Debug/Toggle Unlock All Stages (PlayerPrefs)")]
+    private void ContextToggleUnlockAllStages()
+    {
+        int v = PlayerPrefs.GetInt(DEBUG_UNLOCK_ALL_KEY, 0) == 0 ? 1 : 0;
+        PlayerPrefs.SetInt(DEBUG_UNLOCK_ALL_KEY, v);
+        PlayerPrefs.Save();
+        Debug.Log($"[LevelProgressionManager] {DEBUG_UNLOCK_ALL_KEY} = {(v == 1)} (applies to any singleton instance).");
+        foreach (LevelButton lb in FindObjectsOfType<LevelButton>(true))
+            lb.UpdateButtonState();
+    }
+
+#if UNITY_EDITOR
+    [MenuItem("Tools/Debug/Toggle Unlock All Stages")]
+    private static void MenuToggleUnlockAllStages()
+    {
+        int v = PlayerPrefs.GetInt(DEBUG_UNLOCK_ALL_KEY, 0) == 0 ? 1 : 0;
+        PlayerPrefs.SetInt(DEBUG_UNLOCK_ALL_KEY, v);
+        PlayerPrefs.Save();
+        Debug.Log($"[LevelProgressionManager] {DEBUG_UNLOCK_ALL_KEY} = {(v == 1)}");
+        if (Application.isPlaying)
+        {
+            foreach (LevelButton lb in Object.FindObjectsOfType<LevelButton>(true))
+                lb.UpdateButtonState();
+        }
+    }
+#endif
 
     /// <summary>
     /// Gets the previous scene name for a given scene.

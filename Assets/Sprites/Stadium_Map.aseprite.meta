@@ -223,6 +223,26 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+  - name: Stadium_Map_4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 112
+      y: 50
+      width: 54
+      height: 51
+    spriteID: 2fea6c7df6ec56f4facad873915a7a77
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
     uuid:
@@ -242,7 +262,7 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 0
-        width: 103
+        width: 157
         height: 94
       spriteId: 29009d6bd891f2b44b19c94107b2a341
     linkedCells: []
@@ -287,5 +307,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 116, y: 94}
-  previousTextureSize: {x: 128, y: 128}
+  canvasSize: {x: 232, y: 94}
+  previousTextureSize: {x: 256, y: 128}

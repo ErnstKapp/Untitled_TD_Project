@@ -36,20 +36,25 @@ MonoBehaviour:
     portrait: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
     speakerOnLeft: 1
   - speakerName: Four layers of Boogers
-    text: Yes, whats up funny-man?
+    text: Yes, and who are you?
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
     speakerOnLeft: 0
   - speakerName: Pagliacci
-    text: You are requested to visit my friend Don Giovanni in Paris. Please accompany
-      me friends. *sniff*
+    text: My friend Don Giovanni want to meet with you. Please accompany me friends.
+      *sniff*
     portrait: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
     speakerOnLeft: 1
   - speakerName: Four layers of Boogers
-    text: Is this about the strangers crashing our show?
+    text: Why does he want to meet with us?
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
     speakerOnLeft: 0
   - speakerName: Pagliacci
-    text: 'Yes *sniff*, I can not explain more here commendatori, to Paris! '
+    text: I can not explain too much here, since it is not safe my friends, but it
+      has to do with the strangers crashing your show.
+    portrait: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Pagliacci
+    text: Please, accompany me to Paris, it is very important. *sniff*
     portrait: {fileID: -5293435775635076823, guid: fb2e480e1a67d4549bce9a3037146373, type: 3}
     speakerOnLeft: 1
   - speakerName: Four Layers of Boogers

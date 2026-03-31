@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
     private float distanceTraveled = 0f;
     private float segmentProgress = 0f; // Progress along current segment (0 to 1)
     private bool isInitialized = false;
-    
     // DoT and Slow effects
     private float dotDamage = 0f; // Current DoT damage per second
     private float dotTimer = 0f; // Time remaining for DoT
@@ -212,7 +211,7 @@ public class Enemy : MonoBehaviour
         // Get segment start and end positions
         Vector2 segmentStart = path.GetWorldWaypoint(currentWaypointIndex);
         Vector2 segmentEnd = path.GetWorldWaypoint(currentWaypointIndex + 1);
-        Vector2 currentPos = transform.position;
+        Vector2 currentPos = (Vector2)transform.position;
         
         // Check if we've reached the current target waypoint
         float distanceToWaypoint = Vector2.Distance(currentPos, segmentEnd);
@@ -233,7 +232,7 @@ public class Enemy : MonoBehaviour
             // Update for next segment
             segmentStart = path.GetWorldWaypoint(currentWaypointIndex);
             segmentEnd = path.GetWorldWaypoint(currentWaypointIndex + 1);
-            currentPos = transform.position;
+            currentPos = (Vector2)transform.position;
         }
         
         // Calculate progress along current segment
@@ -258,7 +257,8 @@ public class Enemy : MonoBehaviour
         Vector2 direction = (targetPosition - currentPos).normalized;
         
         // Move towards the calculated position
-        transform.position = Vector2.MoveTowards(currentPos, targetPosition, moveDistance);
+        Vector2 movedPos = Vector2.MoveTowards(currentPos, targetPosition, moveDistance);
+        transform.position = movedPos;
         
         // Rotate sprite to face movement direction
         if (spriteRenderer != null && direction.magnitude > 0.01f)

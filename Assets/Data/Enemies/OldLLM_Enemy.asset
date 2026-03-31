@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548ec92ed7bfc6842bc1083a6c691f44, type: 3}
   m_Name: OldLLM_Enemy
   m_EditorClassIdentifier: 
-  enemyName: Opera Enemy
+  enemyName: Old LLM Enemy
   enemySprite: {fileID: 0}
   enemyPrefab: {fileID: 868210705554616403, guid: ce05da34edae1484fafaf4f7fc42c0b3, type: 3}
   maxHealth: 140
   moveSpeed: 1
-  currencyReward: 10
+  currencyReward: 5
   damageToPlayer: 1
   weaknessGenre: 5
   weaknessDamageMultiplier: 1.5

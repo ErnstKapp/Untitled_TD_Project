@@ -35,7 +35,7 @@ MonoBehaviour:
     portrait: {fileID: 1422787415573463666, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 0
   - speakerName: Moon Cakes
-    text: No sir! Not a leprechaun, just ol' Moon Cakes at your service!
+    text: No sir! Not a leprechaun, just Moon Cakes!
     portrait: {fileID: 5975404813947854390, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: The King
@@ -43,9 +43,8 @@ MonoBehaviour:
     portrait: {fileID: -5769496865783770079, guid: e55db05dbd6049a4b90ad5a20db6996d, type: 3}
     speakerOnLeft: 0
   - speakerName: Moon Cakes
-    text: In the flesh! Since I am the pride and joy of the Mobile blues scene, I
-      take my name from our local claim to fame, the equally classic Mobile Moon
-      Pie!
+    text: Yes, I'm good friends with the Opera troupe you brought along. The name
+      comes from our local Moon Pies.
     portrait: {fileID: 5975404813947854390, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: Four Layered Booger
@@ -53,16 +52,21 @@ MonoBehaviour:
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
     speakerOnLeft: 0
   - speakerName: Moon Cakes
-    text: Its a pie with fluffy marshmallow filling between two Graham crackers.
-      I must have you over at my place for some pies!
+    text: 'Its a pie with fluffy marshmallow filling between two Graham crackers.
+      It''s my nickname because I always keep a fridge full.  '
     portrait: {fileID: -3509943568614503243, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: Don Giovanni
-    text: I prefer Tiramisu...
+    text: It is always a pleasure to see you Moon Cakes, it pains us to come back
+      here after the attack, I hope you have recovered.
+    portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
+    speakerOnLeft: 0
+  - speakerName: Moon Cakes
+    text: I'm alright Giovanni, thanks for asking.
     portrait: {fileID: 1441219509135777989, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 0
   - speakerName: Don Giovanni
-    text: You have any more information about these strangers Moon Cakes?
+    text: You have any more information about these strangers?
     portrait: {fileID: 2985656031333556012, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 0
   - speakerName: Moon Cakes
@@ -79,16 +83,16 @@ MonoBehaviour:
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
     speakerOnLeft: 0
   - speakerName: Ricky
-    text: Mhm, he looked mighty sad, so i cheered him up over at my place with  a
-      music session. Never had the chance to see him play the fiddle before you see.
+    text: Mhm sounds crazy I know, but he sometimes comes around these parts to harvest
+      souls. These are mysterious swamps you have entered folks.
     portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: Four Layered Booger
-    text: Im sorry, but youre obviously mad sir.
+    text: Im sorry, but you're obviously mad sir.
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
     speakerOnLeft: 0
   - speakerName: Ricky
-    text: Is that right? Well good thing he crashed on my couch. Ba'alzebub!
+    text: Is that right? Well good thing he sobered up on my couch last night. Ba'alzebub!
     portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: The Devil
@@ -100,8 +104,11 @@ MonoBehaviour:
     portrait: {fileID: 9148678872912604439, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
     speakerOnLeft: 0
   - speakerName: Ricky
-    text: 'I was just explaining to these people here what got you so down in the
-      dumps, you feel alright explaining that? '
+    text: I was just explaining to these people here how strange the swamp can get.
+    portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+    speakerOnLeft: 1
+  - speakerName: Ricky
+    text: Care to introduce yourself?
     portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: The Devil
@@ -122,14 +129,9 @@ MonoBehaviour:
       looking for a soul to steal.
     portrait: {fileID: 8998519305058803246, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
-  - speakerName: Ricky
-    text: If you're looking for soul, thats where you go.
-    portrait: {fileID: 8521512186690865786, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
-    speakerOnLeft: 1
   - speakerName: The Devil
-    text: Right, so I found this kid playing on his fiddle, real stiff looking fella.
-      I thought hey easy soul aquired right? Kid had no panache in his play, looked
-      downright animatronic.
+    text: Right, so I found this kid playing on his fiddle, real stiff looking little
+      guy.
     portrait: {fileID: 2741398814378168921, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: The Devil
@@ -138,12 +140,13 @@ MonoBehaviour:
     portrait: {fileID: 8998519305058803246, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: The Devil
-    text: 'Well check this: I win the duel but the kid had no soul to give! '
+    text: 'And the most peculiar thing happens: I win the duel but the kid had no
+      soul to give! '
     portrait: {fileID: 1674671633654255636, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: The Devil
-    text: So I say what kind of bullshit are you on son? Are you trying to pull a
-      fast one on the devil?
+    text: I could not believe my eyes. Everything from the smallest worm to the biggest
+      whale has a soul. How did this kid not have one?
     portrait: {fileID: 8998519305058803246, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
     speakerOnLeft: 1
   - speakerName: The Devil

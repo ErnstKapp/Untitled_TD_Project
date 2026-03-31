@@ -396,6 +396,10 @@ public class TowerInfoUI : MonoBehaviour
             return;
         }
 
+        // Switching selection: hide previous tower's range so only one ring is visible.
+        if (selectedTower != null && selectedTower != tower)
+            selectedTower.ShowRange(false);
+
         // Just store the tower reference - the UI will pull what it needs
         selectedTower = tower;
         justClickedTower = true; // Set flag to prevent immediate close
