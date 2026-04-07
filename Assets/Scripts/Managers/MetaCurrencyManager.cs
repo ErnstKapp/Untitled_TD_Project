@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +15,9 @@ public class MetaCurrencyManager : MonoBehaviour
     [SerializeField] private int metaCurrency = 0;
 
     public int MetaCurrency => metaCurrency;
+
+    /// <summary>Fired after meta currency changes (amount is the new total).</summary>
+    public event Action<int> OnMetaCurrencyChanged;
 
     private void Awake()
     {
@@ -37,6 +41,7 @@ public class MetaCurrencyManager : MonoBehaviour
     {
         metaCurrency += amount;
         SaveMetaCurrency();
+        OnMetaCurrencyChanged?.Invoke(metaCurrency);
     }
 
     /// <summary>
@@ -46,6 +51,7 @@ public class MetaCurrencyManager : MonoBehaviour
     {
         metaCurrency = amount;
         SaveMetaCurrency();
+        OnMetaCurrencyChanged?.Invoke(metaCurrency);
     }
 
     /// <summary>
@@ -57,6 +63,7 @@ public class MetaCurrencyManager : MonoBehaviour
         {
             metaCurrency -= amount;
             SaveMetaCurrency();
+            OnMetaCurrencyChanged?.Invoke(metaCurrency);
             return true;
         }
         return false;

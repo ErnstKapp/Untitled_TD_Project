@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc3047590dd0804a882482062510196, type: 3}
   m_Name: Pop_Tower
   m_EditorClassIdentifier: 
-  towerName: Blues Tower
-  description: Brighella
+  towerName: Pop Tower
+  description: Boots n Cats Boots n Cats
   icon: {fileID: 21300000, guid: e679359d920aa174b96e1f008b8f6c5a, type: 3}
+  metaUpgradeId: 
   towerPrefab: {fileID: 5947421471429857053, guid: e63414ea23e067248a5a7ee3720f3a67, type: 3}
-  cost: 60
+  cost: 80
   range: 2.5
   fireRate: 1
   damage: 10
@@ -33,5 +34,5 @@ MonoBehaviour:
   avoidTargetingIfStatus: 0
   projectilePrefab: {fileID: 3057394619383153864, guid: 4449261dee97db7448b789cf6212f090, type: 3}
   baseAnimatorController: {fileID: 0}
-  rootUpgrade: {fileID: 11400000, guid: f8c63e32e9643f8409ddbbd5d023cdd9, type: 2}
+  rootUpgrade: {fileID: 11400000, guid: 15e80834390d33544b60a6b7645a5101, type: 2}
   genre: 1

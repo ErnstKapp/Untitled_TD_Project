@@ -690,6 +690,15 @@ public class Tower : MonoBehaviour
             if (u.projectilePrefabOverride != null) effectiveProjectilePrefab = u.projectilePrefabOverride;
         }
 
+        // Meta upgrades (per tower type + save slot): percentage multipliers after base + in-level upgrades.
+        string metaId = towerData.MetaId;
+        float dmgM = MetaUpgradeState.GetDamageMultiplier(metaId);
+        float rngM = MetaUpgradeState.GetRangeMultiplier(metaId);
+        float frM = MetaUpgradeState.GetFireRateMultiplier(metaId);
+        d *= dmgM;
+        r *= rngM;
+        fr *= frM;
+
         effectiveDamage = d;
         effectiveRange = Mathf.Max(0.1f, r);
         effectiveFireRate = Mathf.Max(0.01f, fr);
@@ -697,8 +706,9 @@ public class Tower : MonoBehaviour
 
         effectiveBurstFire = towerData.burstFire;
         effectiveBurstShotsPerBurst = Mathf.Max(1, towerData.burstShotsPerBurst);
-        effectiveBurstShotInterval = Mathf.Max(0.02f, towerData.burstShotInterval);
-        effectiveBurstCooldown = Mathf.Max(0.05f, towerData.burstCooldown);
+        // Faster fire-rate meta shortens burst gaps and reload (continuous fire uses effectiveFireRate above).
+        effectiveBurstShotInterval = Mathf.Max(0.02f, towerData.burstShotInterval / frM);
+        effectiveBurstCooldown = Mathf.Max(0.05f, towerData.burstCooldown / frM);
 
         // Respect runtime overrides (e.g. from UI).
         if (!hasTargetPriorityOverride)

@@ -26,6 +26,11 @@ public class TowerData : ScriptableObject
     public string towerName = "Basic Tower";
     public string description = "A basic tower";
     public Sprite icon;
+    [Tooltip("Unique id for meta upgrades (per tower type). If empty, the asset name is used.")]
+    [SerializeField] private string metaUpgradeId = "";
+
+    /// <summary>Stable key for per-tower meta upgrades and save data.</summary>
+    public string MetaId => string.IsNullOrEmpty(metaUpgradeId) ? name : metaUpgradeId;
 
     [Header("Tower Prefab")]
     public GameObject towerPrefab;

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16b0c191793b8648b746b4508efe416, type: 3}
+  m_Name: ShidaiquTower
+  m_EditorClassIdentifier: 
+  displayName: Shidaiqu
+  description: Huh baby
+  cost: 50
+  damageAdd: 15
+  rangeAdd: 0
+  fireRateAdd: 0.2
+  projectileSpeedAdd: 0
+  dotDamageAdd: 0
+  dotDurationAdd: 0
+  slowPercentageAdd: 0.15
+  slowDurationAdd: 0
+  spriteOverride: {fileID: 3810571306890385323, guid: c6099a7a74856194c9c88edda7bed819, type: 3}
+  animatorControllerOverride: {fileID: 9100000, guid: cce25c8be4b4f454e99cfbf42e73f67f, type: 2}
+  projectilePrefabOverride: {fileID: 3057394619383153864, guid: 53b71867e06c09846be9111cc4482fb9, type: 3}
+  leftNext: {fileID: 11400000, guid: 126f9dc7097b45e46a4f118d85daa475, type: 2}
+  rightNext: {fileID: 0}
+  specialAbility: 0
+  abilityEffectDuration: 3
+  abilitySlowPercentage: 0.5
+  abilityCooldownSeconds: 15

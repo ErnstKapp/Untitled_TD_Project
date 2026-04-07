@@ -243,6 +243,26 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+  - name: Stadium_Map_5
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 112
+      y: 3
+      width: 54
+      height: 47
+    spriteID: 6cbeee924a4bb76469a36bd00eb4972c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
     uuid:
@@ -262,7 +282,7 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 0
-        width: 157
+        width: 159
         height: 94
       spriteId: 29009d6bd891f2b44b19c94107b2a341
     linkedCells: []

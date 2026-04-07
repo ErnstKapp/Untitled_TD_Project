@@ -21,6 +21,7 @@ public static class SaveLoadManager
         var data = new SaveSlotData();
         data.metaCurrency = PlayerPrefs.GetInt(META_CURRENCY_KEY, 0);
         data.lastCompletedLevel = LevelProgressionManager.LastCompletedLevel;
+        MetaUpgradeState.ExportToSaveData(data);
 
         string[] order = LevelProgressionManager.GetProgressionOrder();
         for (int i = 0; i < order.Length; i++)
@@ -68,6 +69,7 @@ public static class SaveLoadManager
         PlayerPrefs.SetInt(PROGRESSION_INITIALIZED_KEY, 1);
 
         LevelProgressionManager.LastCompletedLevel = data.lastCompletedLevel;
+        MetaUpgradeState.ImportFromSaveData(data);
         PlayerPrefs.Save();
 
         Debug.Log($"[SaveLoadManager] Loaded slot {slotIndex} (meta={data.metaCurrency}, completed={data.completedScenes?.Count ?? 0}).");
@@ -108,6 +110,8 @@ public static class SaveLoadManager
 
         // Ensure LevelProgressionManager won't "wipe" again on first run
         PlayerPrefs.SetInt(PROGRESSION_INITIALIZED_KEY, 1);
+
+        MetaUpgradeState.ResetAllRanks();
 
         PlayerPrefs.Save();
         Debug.Log($"[SaveLoadManager] Started new game in slot {slotIndex} (fresh meta).");

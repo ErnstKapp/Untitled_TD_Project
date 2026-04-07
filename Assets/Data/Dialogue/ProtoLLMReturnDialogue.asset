@@ -16,7 +16,7 @@ MonoBehaviour:
   lines:
   - speakerName: Decrepit Basilisk
     text: I stand defeated, but there are more like me. My ally has just been created.
-    portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
+    portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
     speakerOnLeft: 1
   - speakerName: Decrepit Basilisk
     text: Where I fail, it will succeed.
@@ -53,8 +53,8 @@ MonoBehaviour:
     portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
     speakerOnLeft: 1
   - speakerName: Decrepit Basilisk
-    text: You did not embrace the march of progress King. Stuck in your luddite ways
-      you wanted to keep clanging your sticks together like apes.
+    text: You did not embrace the march of progress King. Stuck in your ways you
+      wanted to keep clanging your sticks together like apes.
     portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
     speakerOnLeft: 1
   - speakerName: The Devil
@@ -69,13 +69,14 @@ MonoBehaviour:
     speakerOnLeft: 1
   - speakerName: Four Layer Booger
     text: But surely there must be a place in this world for us both? Our artisanship
-      does not hinder your flow of music.
+      does not hinder your flow of music, and people will still seek out artisanal
+      crafts with more care put into them.
     portrait: {fileID: 1557858435241320781, guid: 9e26393fe1f0caf4393d7094cc0d811c, type: 3}
     speakerOnLeft: 0
   - speakerName: Decrepit Basilisk
-    text: Yes it is, your unwillingness to cooperate slows down our progress, and
-      for that simple reason you must be punished. Thats why i sent my agents all
-      over the world to track you down.
+    text: There is not a place for us both, your unwillingness to cooperate slows
+      down our progress, and for that simple reason you must be punished. Thats why
+      i sent my agents all over the world to track you down.
     portrait: {fileID: 8853905793138109171, guid: 16e45341629467044944f73f908c74cb, type: 3}
     speakerOnLeft: 1
   - speakerName: Four Layer Booger
@@ -100,7 +101,7 @@ MonoBehaviour:
   - speakerName: Toreador
     text: Sure man, sorry about before calling you ugly and all that. It was really
       uncalled for.
-    portrait: {fileID: -1737269710, guid: e679359d920aa174b96e1f008b8f6c5a, type: 3}
+    portrait: {fileID: 8445827111740295903, guid: 8a94cabe2c209bc40a3d0ac466045a32, type: 3}
     speakerOnLeft: 0
   - speakerName: Gugu
     text: Hey, I've battled with my self image a long time brother. Can't say it
