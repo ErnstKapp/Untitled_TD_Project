@@ -811,46 +811,10 @@ MonoBehaviour:
   waves:
   - enemies:
     - enemyData: {fileID: 11400000, guid: 2e232306be11fc44d803e3eec6c8ad8c, type: 2}
-      count: 4
+      count: 2
       pathIndex: -1
     - enemyData: {fileID: 11400000, guid: 20b0141c7aa886e40b6957db401df87f, type: 2}
-      count: 4
-      pathIndex: -1
-    timeBetweenSpawns: 1
-    timeBeforeNextWave: 5
-  - enemies:
-    - enemyData: {fileID: 11400000, guid: 2e232306be11fc44d803e3eec6c8ad8c, type: 2}
-      count: 6
-      pathIndex: -1
-    - enemyData: {fileID: 11400000, guid: 20b0141c7aa886e40b6957db401df87f, type: 2}
-      count: 6
-      pathIndex: -1
-    timeBetweenSpawns: 1
-    timeBeforeNextWave: 5
-  - enemies:
-    - enemyData: {fileID: 11400000, guid: 2e232306be11fc44d803e3eec6c8ad8c, type: 2}
-      count: 8
-      pathIndex: -1
-    - enemyData: {fileID: 11400000, guid: 20b0141c7aa886e40b6957db401df87f, type: 2}
-      count: 8
-      pathIndex: -1
-    timeBetweenSpawns: 1
-    timeBeforeNextWave: 5
-  - enemies:
-    - enemyData: {fileID: 11400000, guid: 2e232306be11fc44d803e3eec6c8ad8c, type: 2}
-      count: 10
-      pathIndex: -1
-    - enemyData: {fileID: 11400000, guid: 20b0141c7aa886e40b6957db401df87f, type: 2}
-      count: 10
-      pathIndex: -1
-    timeBetweenSpawns: 1
-    timeBeforeNextWave: 5
-  - enemies:
-    - enemyData: {fileID: 11400000, guid: 2e232306be11fc44d803e3eec6c8ad8c, type: 2}
-      count: 12
-      pathIndex: -1
-    - enemyData: {fileID: 11400000, guid: 20b0141c7aa886e40b6957db401df87f, type: 2}
-      count: 12
+      count: 3
       pathIndex: -1
     timeBetweenSpawns: 1
     timeBeforeNextWave: 5

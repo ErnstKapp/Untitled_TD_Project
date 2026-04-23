@@ -7334,7 +7334,7 @@ MonoBehaviour:
   waves:
   - enemies:
     - enemyData: {fileID: 11400000, guid: 30814da0a6c8fc64d8981f332d4d75f0, type: 2}
-      count: 3
+      count: 30
       pathIndex: -1
     - enemyData: {fileID: 11400000, guid: b463ab6ba2662e84bb454d19f9195194, type: 2}
       count: 1
@@ -7376,7 +7376,7 @@ MonoBehaviour:
   isGameActive: 0
   isGamePaused: 0
   startingLives: 20
-  startingCurrency: 200
+  startingCurrency: 2000
 --- !u!4 &1976985249
 Transform:
   m_ObjectHideFlags: 0
